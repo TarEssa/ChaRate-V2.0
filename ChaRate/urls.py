@@ -1,4 +1,5 @@
 from django.conf.urls import url
+from django.contrib.auth import views as auth_views
 from ChaRate import views
 
 urlpatterns = [
@@ -13,8 +14,8 @@ urlpatterns = [
 #    url(r'^movpage/(?P<mov_name_slug>[\w\-]+)/$',
 #        views.movpage, name='movpage'),
 
- #   url(r'^tvpage/(?P<tv_name_slug>[\w\-]+)/add_character/$',
-  #      views.create_character, name='create_character'),
+#   url(r'^tvpage/(?P<tv_name_slug>[\w\-]+)/add_character/$',
+#      views.create_character, name='create_character'),
 #    url(r'^movpage/(?P<mov_name_slug>[\w\-]+)/add_character/$',
 #        views.create_character, name='create_character'),
 
@@ -25,11 +26,10 @@ urlpatterns = [
 #        views.character, name='character'),
 
 
-
-
-    url(r'^login/$', views.user_login, name ='login'),
-    url(r'^register/$', views.register, name='register'),
-    url(r'^logout/$', views.user_logout, name='logout'),
+    url(r'^accounts/login/$', auth_views.login, name='login')
+#    url(r'^login/$', views.user_login, name ='login'),
+#    url(r'^register/$', views.register, name='register'),
+#    url(r'^logout/$', views.user_logout, name='logout'),
     #restricted +/ logout
     # No restricted page required
 

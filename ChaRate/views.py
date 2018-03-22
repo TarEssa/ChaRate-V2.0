@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login , logout
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 
 from ChaRate.models import Character, Movie, TV
 from ChaRate.forms import UserForm, UserProfileForm
+
 
 # from django.db.utils import OperationalError
 # format_list = [('', '(all)')]
@@ -23,15 +24,15 @@ from ChaRate.forms import UserForm, UserProfileForm
 
 
 def index(request):
+    characters = Character.objects.order_by('-likes')[:5]
+    # most_discussed = Character.objects.order_by('-comments')[:1]
+    context_dict = {'characters': characters}  # 'most_comments': most_discussed}
+    return render(request, 'ChaRate/index.html', context=context_dict)
 
-    characters  = Character.objects.order_by('-likes')[:5]
-    #most_discussed = Character.objects.order_by('-comments')[:1]
-    context_dict = {'characters': characters}# 'most_comments': most_discussed}
-    return render(request, 'ChaRate/index.html', context = context_dict)
 
 def about(request):
     return render(request, 'ChaRate/about.html', {'characters'})
-    
+
 
 @login_required
 def link_movie(request, char_name_slug):
@@ -44,17 +45,18 @@ def link_movie(request, char_name_slug):
     currentmovie = linkMovieForm()
 
     if request.method == 'POST':
-        
-      currentmovie = linkMovie(request.POST)
 
-      if [character not in currentmovie.Character.all()]:
-        currentmovie.Charecter.add(Charecter.objects.get(name = char_name_slug))
+        currentmovie = linkMovie(request.POST)
 
-        return show_charecter(request, char_name_slug)
+        if [character not in currentmovie.Character.all()]:
+            currentmovie.Charecter.add(Charecter.objects.get(name=char_name_slug))
+
+            return show_charecter(request, char_name_slug)
     return render(request, 'ChaRate/link_mov.html', context=context_dict)
 
+
 @login_required
-def linkTv(request,char_name_slug):
+def linkTv(request, char_name_slug):
     try:
         character = Character.objects.get(slug=char_name_slug)
     except Character.DoesNotExist:
@@ -64,40 +66,43 @@ def linkTv(request,char_name_slug):
     currentshow = linkTvForm()
 
     if request.method == 'POST':
-        
-      currentshow = linkTvForm(request.POST)
 
-      if [character not in currentmovie.Character.all()]:
-        currentshow.Character.add(Character.objects.get(name = char_name_slug))
-        return show_character(request, char_name_slug)
+        currentshow = linkTvForm(request.POST)
+
+        if [character not in currentmovie.Character.all()]:
+            currentshow.Character.add(Character.objects.get(name=char_name_slug))
+            return show_character(request, char_name_slug)
     return render(request, 'ChaRate/link_tv.html', context=context_dict)
 
+
 @login_required
-def Account(request,):
-    comments = Comment.objects.filter(writer = request.user)
-    characters = UserProfile.objects.CommentCount.get(user = request.user)
+def Account(request, ):
+    comments = Comment.objects.filter(writer=request.user)
+    characters = UserProfile.objects.CommentCount.get(user=request.user)
     context_dict = {'comments': len(comments), 'characters': characters}
     return render(request, 'ChaRate/account.html', context=context_dict)
 
-def filter_tv(request):   
+
+def filter_tv(request):
     TVshows = TV.objects.all()
     context_dict = {'TVShows': TVShows}
     return render(request, 'ChaRate/character.html', context_dict)
 
 
-def filter_mov(request):  
+def filter_mov(request):
     movies = Movie.objects.all()
     context_dict = {'movies': movies}
     return render(request, 'ChaRate/character.html', context_dict)
 
+
 def search(request):
-    context_dict = {}    
+    context_dict = {}
     character = Character.objects.all()
     context_dict['character'] = character
     return render(request, 'ChaRate/character.html', context_dict)
 
-def show_character(request, Character_name_slug):
 
+def show_character(request, Character_name_slug):
     context_dict = {}
     try:
 
@@ -115,7 +120,6 @@ def show_character(request, Character_name_slug):
 
 
 def show_movie(request, movie_name_slug):
-
     context_dict = {}
     try:
         movie = Movie.objects.get(slug=movie_name_slug)
@@ -129,8 +133,8 @@ def show_movie(request, movie_name_slug):
 
     return render(request, 'ChaRate/movpage.html', context_dict)
 
-def show_tvShow(request, tvshow_name_slug):
 
+def show_tvShow(request, tvshow_name_slug):
     context_dict = {}
     try:
         TvShow = TV.objects.get(slug=tvshow_name_slug)
@@ -143,6 +147,7 @@ def show_tvShow(request, tvshow_name_slug):
         context_dict['characters'] = None
 
     return render(request, 'ChaRate/tvpage.html', context_dict)
+
 
 @login_required
 def add_tv(request):
@@ -181,15 +186,16 @@ def add_mov(request):
 
     return render(request, 'ChaRate/add_mov.html', {'form': form})
 
+
 @login_required
-def add_comment(request,Character_name_slug):
+def add_comment(request, Character_name_slug):
     form = CommentForm()
 
     if request.method == 'POST':
         form = CommentForm(request.POST)
 
         if form.is_valid():
-            form.writer = UserProfile.objects.get(user = request.user)
+            form.writer = UserProfile.objects.get(user=request.user)
 
             form.save(commit=True)
 
@@ -224,58 +230,57 @@ def add_comment(request,Character_name_slug):
 
 @login_required
 def add_character(request, CHAR_name_slug):
- try:
-    char = Character.objects.get(slug=CHAR_name_slug)
- except Character.DoesNotExist:
-     char = None
- form = createCharForm()
- if request.method == 'POST':
-  form = CharacterForm(request.POST)
-  if form.is_valid():
-    character.likes =0
-    character.save()
-    return show_category(request, CHAR_name_slug)
- else:
-    print(form.errors)
-    context_dict = {'form':form, 'character': char}
- return render(request, 'ChaRate/create_character.html', context_dict)
+    try:
+        char = Character.objects.get(slug=CHAR_name_slug)
+    except Character.DoesNotExist:
+        char = None
+    form = createCharForm()
+    if request.method == 'POST':
+        form = CharacterForm(request.POST)
+        if form.is_valid():
+            character.likes = 0
+            character.save()
+            return show_category(request, CHAR_name_slug)
+    else:
+        print(form.errors)
+        context_dict = {'form': form, 'character': char}
+    return render(request, 'ChaRate/create_character.html', context_dict)
+
 
 # User Authentication: ------------------------------------
 
 def register(request):
     registered = False
     if request.method == 'POST':
-
-        user_form = UserForm(data=request.POST)
-        profile_form = UserProfileForm(data=request.POST)
-
-        if user_form.is_valid() and profile_form.is_valid():
-
-            user = user_form.save()
-
-            user.set_password(user.password)
+        form = UserForm(data=request.POST)
+        # profile_form = UserProfileForm(data=request.POST)
+        if form.is_valid():
+            user = form.save()
+            user.refresh_from_db()
             user.save()
-
-            profile = profile_form.save(commit=False)
-            profile.user = user
-            if 'picture' in request.FILES:
-                profile.picture = request.FILES['picture']
-
-            profile.save()
+            username = form.cleaned_data.get('username')
+            password1 = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=password1)
             registered = True
-        else:
-            print(user_form.errors, profile_form.errors)
+            login(request, user)
+
+
+            # profile = profile_form.save(commit=False)
+            # profile.user = user
+            # if 'picture' in request.FILES:
+            #    profile.picture = request.FILES['picture']
+        #            profile.save()
+        #            registered = True
+        #       else:
+        #          print(user_form.errors, profile_form.errors)
     else:
-        user_form = UserForm()
-        profile_form = UserProfileForm()
-    return render(request,
-                  'ChaRate/register.html',
-                  {'user_form': user_form,
-                   'profile_form': profile_form,
-                   'registered': registered})
+        form = UserForm
+        # profile_form = UserProfileForm()
+    return render(request, 'ChaRate/registration_register',
+                  {'form': form, 'registered': registered})
+
 
 def user_login(request):
-
     if request.method == 'POST':
 
         username = request.POST.get('username')
@@ -297,10 +302,11 @@ def user_login(request):
     else:
         return render(request, 'ChaRate/login.html', {})
 
+
 @login_required
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('index'))
 
 
-# ------------------------------------
+    # ------------------------------------

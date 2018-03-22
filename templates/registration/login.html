@@ -17,7 +17,7 @@
     </div>
     <div class="bblock" id="dark">
     <form id="login_form" method="POST" action="{% url 'login' %}"> <!-- If id doesnt work replace url by '.' -->
-        <!-- {% csrf_token %} -->
+        {% csrf_token %}
         <!--{{ form.as_p }} -->
         <p>Username</p>
         <p><input type="text" name="username" placeholder="Enter Username..." value="" size="70%" /></p>
@@ -25,8 +25,7 @@
         <p><input type="password" name="password" placeholder="Enter Password..."  value="" size="70%"/></p>
 
         <p><button class="button" type="submit" value="submit" ><span>Login</span></button></p>
-
-
+           <!-- <input type="hidden" name="next" value="{{ next }}" /> -->
     </form>
     </div>
 </div>
