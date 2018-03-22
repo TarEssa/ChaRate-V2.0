@@ -1,0 +1,31 @@
+{% extends 'ChaRate/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+	{% get character name %}
+{% endblock %} 
+
+{% block body_block %}
+
+<div class="container">
+    <div class="bblock" id="dark">
+        <h1>TV Shows</h1>
+        <div class="grid">
+            <button class="button active" onclick="filterSelection('all')"> Show all</button>
+            <p>Genre:</p>
+            <button class="button" onclick="filterSelection('Action')"> Action</button>
+            <button class="button" onclick="filterSelection('Sci-Fi')"> Sci-Fi</button>
+            <button class="button" onclick="filterSelection('Romance')"> Romance</button>
+            <button class="button" onclick="filterSelection('Comedy')"> Comedy</button>
+            <button class="button" onclick="filterSelection('...')"> ...</button>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="filteredgrid">
+        <a class="" href="">BEEPPPPPP</a>
+    </div>
+</div>
+
+{% endblock %}

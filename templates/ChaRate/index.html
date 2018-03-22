@@ -1,0 +1,71 @@
+ {% extends "ChaRate/base.html" %}
+{% load staticfiles %} 
+{% block title_block %} Index {% endblock %}
+
+{% block body_block %}
+
+<div class="container">
+        <h2>
+            {% if user.is_authenticated %} 
+                Welcome back, {{ user.username }}! 
+            {% else %} 
+                Rate and comment on your favourite TV Show and Movie characters! 
+            {% endif %}
+        </h2>
+</div>
+
+<div class="container">
+	<div class="dblock">
+		<h2>Most Liked Characters</h2></br>
+        <!-- {% if characters %}  -->
+            <!-- {% for char in characters %}
+		    <p>
+			    <a href="{% url 'show_character' character.slug %}">{{ character.name }}</a>
+		    </p>
+            {% endfor %}  -->
+        <!-- {% else %} -->
+		    <p><strong>There are no characters! Oops.</strong></p>
+		<!-- {% endif %} -->
+	</div>
+
+	<div class="dblock">
+
+            <h3>Looking for characters?</h3>
+            <a id="button" href="">Explore TV Shows</a>
+            <a id="button" href="">Explore Movies</a>
+
+		<!-- <h3>Most Viewed Pages</h3>
+		<!-- <p> -->
+    </div>
+</div>
+
+<div class="container">
+    <!--  get character with most comments  -->
+    <div class="dblock">
+        <img class="ri" src="/static/images/darth_vader.jpg" 
+        alt="Character Image" style="width:100%"> 
+    </div>
+    <div class="dblock">
+        <h2>Most Discussed Character:</h2> <br/>
+        <p>
+            --CHARACTER NAME--
+            <!--  character name   -->
+        </p>
+        <p>From:</p>
+
+        <p>
+        SHOWS & MOVIES
+        <!--  for shows in tvshow 
+            print shows
+         endfor 
+
+         for movie in movies 
+             print movie
+         endfor  -->
+        </p>
+
+
+
+    </div>
+</div>
+{% endblock %}

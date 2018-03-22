@@ -1,0 +1,31 @@
+{% extends 'ChaRate/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+	Search Results
+{% endblock %} 
+
+{% block body_block %}
+
+<div class="container">
+    <div class="bblock" id="dark">
+        <p>
+            <input type="text" class="search" name="search" placeholder="Search" value=""/>
+            <button class="search" type="submit" ><span>Search</span></button>
+        </p>
+    </div>
+</div>
+
+<div class="container">
+        <div class="bblock">
+            <p>
+                Search Results
+            </p>
+            <p>
+                Search Results
+            </p>
+        </div>
+
+    </div>
+
+{% endblock %}

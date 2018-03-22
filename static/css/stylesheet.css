@@ -1,0 +1,380 @@
+/* 2254721m - Kenneth
+ChaRate CSS v 1.0 */
+
+/* Main Content Setup: ------------------------------- */
+
+body {
+    outline: 0;
+    margin:0;
+    font-family: Trebuchet MS;
+    font-size: 14px;
+    /* overflow: hidden; */
+    /* text-overflow: ellipsis; */
+    /* word-wrap: break-word; */
+}
+
+.main {
+    padding: 15px;
+    margin-top: 70px;
+}
+
+img {
+    width: 100%;
+    max-height: 100%;
+}
+
+img.inline {
+    max-height: 300px;
+    max-width: 60%;
+    height: auto;
+    width: auto;
+}
+
+p {
+    padding: 3px;
+    float: none;
+}
+
+span {
+    float: none;
+    display: inline-block;
+}
+
+/* -------------------------------  */
+
+/* Navbar: ------------------------------- */
+.navbar {
+    z-index: 1;
+    overflow: hidden;
+    background-color: #333;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+a {
+    font-family: Courier New;
+    float: right;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    font-size: 16px;
+    padding: 14px 10px;
+    text-decoration: none;
+  
+}
+
+a.s_icon {
+    /* font-family: Courier New;
+    font-size: 30px; */
+    /* padding: 6px 10px; */
+    font-weight: bold;
+    border: 3px solid #4b4b4b;
+    background-color: #4b4b4b;
+    margin-right: 20px;
+    /* transform: scale(-1,-1); */
+}
+
+a.s_icon:hover {
+    border: 3px solid lightskyblue;
+    
+}
+
+a:hover {
+    color: skyblue;
+}
+
+#logo {
+    font-weight: bold;
+    float: left;
+    font-size: 30px;
+    padding: 6px 10px;
+    color: deepskyblue;
+}
+
+#logo:hover {
+    color: lightskyblue; 
+}
+
+/* ------------------------------- */
+
+/* Table & Blocks/Cells: -------------------------------  */
+
+.container {
+    box-sizing: content-box;
+    display: table;
+    border-collapse: separate;
+    border-spacing: 40px;
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 20px;
+    background-color: whitesmoke;
+    text-align: center;
+    /* padding: 20px; */
+}
+
+/* Double Block/Cell: */
+
+.dblock {
+    box-sizing: content-box;
+    width: 50%;
+    text-align: center;
+    display: table-cell;
+    padding: 10px;
+    background-color: #333;
+    color: #f2f2f2;
+    vertical-align: middle;
+    
+}
+
+.dblock a {
+    text-align: center;
+    float: none;
+}
+
+@media only screen and (max-width: 700px) {
+    .dblock { 
+        float: none;
+        display: table-row;
+        padding: 10px;
+        margin-bottom: 40px;
+        width: 100%;
+    }
+}
+
+/* Basic Single Block/Cell: */
+
+.bblock {
+    /* display: block; */
+    display: table-row;
+    float: none;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    padding: 10px;
+}
+
+#dark {
+    background-color: #333;
+    color: #f2f2f2;
+}
+
+/* -------------------------------  */
+
+/* Bnav (bottom bar): ------------------------------- */
+
+#bnavb {
+    width: 85%;
+    margin-bottom: 20px;
+}
+
+.bnav, #bnav {
+    overflow: hidden;
+    position: static;
+    width: 100%;
+    margin-top: 40px;
+    margin: 0 auto;
+  }
+
+.bnav a {
+    float: none;
+    text-align: center;
+}
+/* ------------------------------- */
+
+
+
+/* Inputs: ------------------------------- */
+
+
+/* Input Fields: */
+input {
+    border: 0px;
+    padding: 10px;
+    width: 80%;
+    font-family: Trebuchet MS;
+    font-size: 14px;
+  }
+  
+input:focus {
+    background: skyblue;
+}
+
+/* Button: */
+.button {
+    background-color: #333;
+    border: none;
+    color: white;
+    text-align: center;
+    font-size: 15px;
+    font-family: Trebuchet MS;
+    padding: 10px;
+    width: 200px;
+    cursor: pointer;
+    margin: 0 auto;
+    display: block;
+    border-bottom: 2px solid #333;
+}
+  
+.button:hover {
+    color: lightskyblue;
+    border-bottom: 2px solid lightskyblue;
+}
+  
+/* Radio Buttons: */
+input#radio {
+    width: 20px;
+    vertical-align: baseline;
+}
+
+/* ------------------------------- */
+
+/* Search Button & Page: ------------------------------- */
+
+#searchbar {
+    z-index: 1;
+    position: fixed;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: -15px;
+    width: 100%;
+    background-color: #333;
+    border-top: solid 3px #4b4b4b;
+    border-bottom: solid 3px #4b4b4b;
+    display: none;
+}
+
+.search.exit {
+    border: solid 5px #333;
+    width: 40px;
+    font-weight: bolder;
+    display: table-cell;
+}
+
+input.search {
+    font-size: 12px;
+    width: 70%;
+    display: table-cell;
+    height: 40px;
+}
+
+button.search {
+    color: white;
+    text-align: center;
+    font-size: 12px;
+    font-family: Trebuchet MS;
+    border: none;
+    background-color: #4b4b4b;
+    cursor: pointer;
+    font-size: 12px;
+    display: table-cell;
+    width: 100px;
+    height: 40px;
+}
+
+button.search:hover {
+    color: lightskyblue;
+}
+
+@media only screen and (max-width: 700px) {
+    input.search{
+        width: 70%;
+    }
+    button.search, button.search.exit {
+        width: 70%;
+    }
+}
+/* Comments: ------------------------------- */
+
+/* Navigation overlay: ------------------------------- */
+
+.overlay {
+    height: 100%;
+    width: 100%;
+    display: none;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgba(51, 51, 51, 0.7);
+}
+
+.overlay-content {
+    position: relative;
+    width: 90%;
+    min-width: 200px;
+    text-align: center;
+    margin: 0 auto;
+    background-color: #333;
+    border: solid 3px #4b4b4b;
+}
+
+/* ------------------------------- */
+
+/* Filter Pages: ------------------------------- */
+
+.grid {
+    padding: 0;
+    display: table;
+    width: 100%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    word-wrap: break-word;
+}
+
+.grid .button {
+    display: table-cell;
+    width: 30%;
+}
+
+.filteredgrid a {
+    padding: 0;
+    height: 50px;
+    width: 150px;
+    margin: 2px;
+    border: solid 3px #333;
+    overflow: hidden;
+    word-wrap: break-word;
+    display: table-cell;
+    text-align: center;
+    background-color: #333;
+    color: #ffffff;
+    float: left;
+}
+
+
+
+.filteredgrid a:hover {
+    color: lightskyblue;
+    border: solid 3px lightskyblue;
+}
+
+.filteredgrid button:hover {
+    color: lightskyblue;
+}
+
+
+
+@media only screen and (max-width: 500px) {
+    .filteredgrid a {
+        box-sizing: content-box;
+        width: 100%;
+        margin: 0 auto;
+        margin-bottom: 3px;
+    }
+}
+/* ------------------------------- */
+
+/* Comment Box: ------------------------------- */
+
+textarea {
+    height: 100px;
+    width: 60%;
+    margin: 0 auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 5px;
+    font-size: 15px;
+    resize: vertical;
+}

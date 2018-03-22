@@ -1,0 +1,30 @@
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+	Create Character
+{% endblock %}
+
+{% block body_block %}
+
+    <div class="container">
+        <h1>Add a Character</h1>
+        <div class="bblock" id="dark">
+        
+ 
+            <form id="character_form" method="post" action="{% url 'add_character' %}">
+                {% csrf_token %}
+                {% for hidden in form.hidden_fields %}
+                    {{ hidden }}
+                {% endfor %}
+                {% for field in form.visible_fields %}
+                    {{ field.errors }}
+                    {{ field.help_text }}
+                    {{ field }}
+                {% endfor %}
+            </div>
+                <button class="button" type="submit" 
+                name="submit"><span>Create Character</span></button>
+            </form>
+        </div>
+{% endblock %}

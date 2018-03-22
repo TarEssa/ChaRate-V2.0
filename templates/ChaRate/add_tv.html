@@ -1,0 +1,30 @@
+{% extends 'ChaRate/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+	Add a new TV Show
+{% endblock %} 
+
+{% block body_block %}
+
+<div class="container">
+    <div class="bblock">
+        <h2>Add a TV Show:</h2>
+    </div>
+    <div class="bblock" id="dark">
+    <form id="addshow_form" method="POST" action="{% url 'add_tv' %}">
+        {% csrf_token %}
+        {% for hidden in form.hidden_fields %}
+            {{ hidden }}
+        {% endfor %}
+        {% for field in form.visible_fields %}
+            {{ field.errors }}
+            {{ field.help_text }}
+            {{ field }}
+        {% endfor %}
+    </div>
+        <p><button class="button" type="submit" value="submit"><span>Submit</span></button></p>
+    </form>
+</div>
+
+{% endblock %}

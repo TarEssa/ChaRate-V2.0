@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/stylesheet.css' %}"/>
+    <!--<script src="{% static 'js/jscript.js' %}"/>-->
+    <title>
+        ChaRate -
+        {% block title_block %} 
+        {% endblock %}
+    </title>
+</head>
+
+<body>
+    <div class="navbar">
+        <a id="logo" href="{% url 'index' %}">ChaRate</a>
+        <a class="s_icon" id="search" onclick="openSearch()">Search</a>
+        <!--  if user.is_authenticated  -->
+            <!-- <a href="">Account</a> -->
+            <!-- <a href="">Logout</a> -->
+        <!--  else  -->
+            <a href="{% url 'auth_login' %}">Login</a>
+        <!--  endif  -->
+    </div>
+    
+    <div id="searchbar">
+        <div class="dblock">
+            <input type="text" class="search" name="search" placeholder="Search" value=""/>
+            <button class="search" type="submit" ><span>Search</span></button>
+            <button class="search exit" onclick="closeSearch()">x</button>
+        </div>
+    </div>
+
+    <div class="main">
+    {% block body_block %} {% endblock %}
+    </div>
+    <!-- <hr /> -->
+    <div class="bnav">
+        <button class="button" id="bnavb" onclick="openNav()"><span>Navigation</span></button>
+        <div id="navigation" class="overlay">
+            <button class="button" id="closebutton" onclick="closeNav()"><span>x</span></button>
+            <!--  if user.is_authenticated  -->
+            <div class="overlay-content" id="">
+                <a href="{% url 'logout' %}">Logout</a>
+                <a href="">Create a Character</a>
+                <a href="{% url 'add_mov' %}">Add a Movie</a>
+                <a href="{% url 'add_tv' %}">Add a TV Show</a>
+            <!--  else  -->
+                <a href="{%  url 'registration_register' %}">Sign Up</a>
+            <!--  endif  -->
+                <a href="">Browse TV Shows</a>
+                <a href="">Browse Movies</a>
+                <a href="{% url 'about' %}">About Us</a>
+                <a href="{% url 'index' %}">Homepage</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

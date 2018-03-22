@@ -1,0 +1,24 @@
+{% extends 'ChaRate/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+{% get character name %}
+{% endblock %} 
+
+{% block body_block %}
+
+<div class="container">
+    <div class="bblock">
+        <h2>{{ tv.title }}</h2>
+        <p>Characters:</p>
+    </div>
+
+    <div class="filteredgrid">
+        {% for char in tv.chars %}
+            <a href="{% url 'char' char.slug %}">char.name</a>
+            <a href="https://google.co.uk">Google</a>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

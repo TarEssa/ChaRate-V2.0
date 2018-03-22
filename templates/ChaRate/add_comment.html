@@ -1,0 +1,25 @@
+{% extends 'ChaRate/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+	Add Comment
+{% endblock %} 
+
+{% block body_block %}
+<div class="container">
+    <div class="bblock">
+        <h2>Add Comment to {{character.name}}</h2>
+        <p>250 characters max</p>
+    </div>
+</div>
+
+<div class="container">
+    <p>Username: -USERNAME-</p>
+    <div class="bblock" id="dark">
+        <!-- Comment form -->
+        <textarea name="comment" id="" maxlength="250"></textarea>
+    </div>
+    <div class="bblock">
+        <button class="button"><span>Add Comment</span></button>
+    </div>
+</div>

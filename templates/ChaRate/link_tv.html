@@ -1,0 +1,26 @@
+{% extends 'ChaRate/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+	TV Show Link {% get character name %}
+{% endblock %} 
+
+{% block body_block %}
+
+<div class="container">
+    <div class="bblock">
+        <h2>Link {{ character.name }} to:</h2>
+    </div>
+    <div class="bblock" id="dark">
+        <form id="link_tv" method="post" action="{% url 'link_tv' %}" enctype="multipart/form-data"></form> 
+		
+        {% csrf_token %}
+            
+        {{ link_tv.as_p }}
+    </div>  
+    <div class="bblock">   
+        <button class="button" type="submit" name="submit"><span>Link</span></button>
+        </form>
+    </div>
+</div>
+{% endblock %}
