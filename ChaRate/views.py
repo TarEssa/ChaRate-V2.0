@@ -8,7 +8,6 @@ from django.core.urlresolvers import reverse
 from ChaRate.models import Character, Movie, TV
 from ChaRate.forms import UserForm, UserProfileForm
 
-
 # from django.db.utils import OperationalError
 # format_list = [('', '(all)')]
 # geom_type_list = [('', '(all)')]
@@ -21,7 +20,10 @@ from ChaRate.forms import UserForm, UserProfileForm
 #     pass  # happens when db doesn't exist yet, views.py should be
 #           # importable without this side effect
 
-
+# ------Only a sample for  JavaScript comments------
+def sample_char(request):
+    return render(request, 'ChaRate/character_sample.html', {})
+# --------------------------------------------------
 
 def index(request):
     characters = Character.objects.order_by('-likes')[:5]
@@ -31,7 +33,7 @@ def index(request):
 
 
 def about(request):
-    return render(request, 'ChaRate/about.html', {'characters'})
+    return render(request, 'ChaRate/about.html', {})
 
 
 @login_required

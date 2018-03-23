@@ -68,4 +68,27 @@
     </div>
 </div>
 {% endif %}
+
+
+<!-- Overlay: -->
+<div class="overlay" id="comments">
+
+    <button class="button" onclick="closeComments()">x</button>
+    <div class="content-comments">
+    {% for comment in comments %}
+        <!-- % if comment.author the user % -->
+        <div class="commentbox" id="author-is-user">
+            <small>comment.author @ [comment.time]</small>
+            <p>comment.content</p>
+        </div>
+        {% else %}
+        <div class="commentbox">
+            <small>comment.author @ [comment.time]</small>
+            <p>comment.content</p>
+        </div>
+        {% endif %}
+    {% endfor %}
+    </div>
+
+</div>
 {% endblock %}

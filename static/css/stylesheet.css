@@ -3,9 +3,16 @@ ChaRate CSS v 1.0 */
 
 /* Main Content Setup: ------------------------------- */
 
+/* Reset: maintains consistency across browsers. */
+* {
+    margin: 0;
+    padding: 0;
+}
+
 body {
-    outline: 0;
-    margin:0;
+    outline: 0 !important;
+    margin:0 !important;
+    padding: 0 !important;
     font-family: Trebuchet MS;
     font-size: 14px;
     /* overflow: hidden; */
@@ -15,7 +22,7 @@ body {
 
 .main {
     padding: 15px;
-    margin-top: 70px;
+    margin-top: 50px;
 }
 
 img {
@@ -31,13 +38,19 @@ img.inline {
 }
 
 p {
-    padding: 3px;
+    padding: 10px;
     float: none;
 }
 
 span {
     float: none;
     display: inline-block;
+}
+
+small {
+    float: none;
+    display: inline-block;
+    width: 100%;
 }
 
 /* -------------------------------  */
@@ -50,6 +63,8 @@ span {
     position: fixed;
     top: 0;
     width: 100%;
+    margin-bottom: 0;
+    padding-top: 0;
 }
 
 a {
@@ -59,9 +74,16 @@ a {
     color: #f2f2f2;
     text-align: center;
     font-size: 16px;
-    padding: 14px 10px;
+    padding: 5px; 
     text-decoration: none;
-  
+    height: 15px;
+    
+}
+
+.navbar a {
+    /* margin-top: 4px; */
+    border: 3px solid #333;
+    padding: 14px 10px; 
 }
 
 a.s_icon {
@@ -72,6 +94,7 @@ a.s_icon {
     border: 3px solid #4b4b4b;
     background-color: #4b4b4b;
     margin-right: 20px;
+    margin-top: 0px;
     /* transform: scale(-1,-1); */
 }
 
@@ -85,11 +108,15 @@ a:hover {
 }
 
 #logo {
+    padding: 0;
+    /* border: 3px solid #4b4b4b; */
     font-weight: bold;
     float: left;
-    font-size: 30px;
-    padding: 6px 10px;
+    font-size: 40px;
+    margin: 0;
+    /* padding: 6px 10px; */
     color: deepskyblue;
+    height: 15px;
 }
 
 #logo:hover {
@@ -129,6 +156,7 @@ a:hover {
 
 .dblock a {
     text-align: center;
+    padding: 10px;
     float: none;
 }
 
@@ -152,6 +180,9 @@ a:hover {
     margin-top: 10px;
     margin-bottom: 10px;
     text-align: center;
+}
+
+.bblock * {
     padding: 10px;
 }
 
@@ -214,6 +245,7 @@ input:focus {
     cursor: pointer;
     margin: 0 auto;
     display: block;
+    float: none;
     border-bottom: 2px solid #333;
 }
   
@@ -237,7 +269,7 @@ input#radio {
     position: fixed;
     text-align: center;
     margin: 0 auto;
-    margin-top: -15px;
+    margin-top: -1px;
     width: 100%;
     background-color: #333;
     border-top: solid 3px #4b4b4b;
@@ -256,7 +288,7 @@ input.search {
     font-size: 12px;
     width: 70%;
     display: table-cell;
-    height: 40px;
+    height: 20px;
 }
 
 button.search {
@@ -287,7 +319,7 @@ button.search:hover {
 }
 /* Comments: ------------------------------- */
 
-/* Navigation overlay: ------------------------------- */
+/* Overlays: ------------------------------- */
 
 .overlay {
     height: 100%;
@@ -295,19 +327,59 @@ button.search:hover {
     display: none;
     position: fixed;
     z-index: 1;
+    /* top: 9px; */
     top: 0;
     left: 0;
     background-color: rgba(51, 51, 51, 0.7);
 }
 
+/* Navigation: */
 .overlay-content {
     position: relative;
     width: 90%;
     min-width: 200px;
+    max-width: 300px;
     text-align: center;
+    top: 9px;
     margin: 0 auto;
     background-color: #333;
     border: solid 3px #4b4b4b;
+}
+
+/* Comments: */
+.content-comments {
+    position: relative;
+    height: 80%;
+    width: 90%;
+    text-align: center;
+    top: 0;
+    margin: 0 auto;
+    background-color: #4b4b4bab;
+    border: solid 3px #333;
+    overflow: scroll;
+    display: block;
+}
+
+.commentbox {
+    margin: 0 auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 90%;
+    padding: 5px;
+    display: block;
+    text-align: center;
+    background-color: whitesmoke;
+    border: solid 3px #333;
+    word-wrap: break-word;
+}
+
+.commentbox p {
+    border: solid 1px #333;
+    font-family: 'Courier New';
+}
+
+#author-is-user {
+    border: solid 3px lightskyblue;
 }
 
 /* ------------------------------- */

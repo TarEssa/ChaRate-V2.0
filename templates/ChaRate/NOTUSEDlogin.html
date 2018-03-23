@@ -12,8 +12,9 @@
         <h1>Login to ChaRate</h1>
         <p>
             Don't have an account? 
-            <a class="button" href="">Register here!</a>
         </p>
+        <a class="button" href="">Register here!</a>
+
     </div>
     <div class="bblock" id="dark">
     <form id="login_form" method="POST" action="{% url 'login' %}"> <!-- If id doesnt work replace url by '.' -->
@@ -25,8 +26,10 @@
         <p><input type="password" name="password" placeholder="Enter Password..."  value="" size="70%"/></p>
     </form>
     </div>
+    <div class="bblock">
         <p><button class="button" type="submit" value="submit" ><span>Login</span></button></p>
     </form>
+    </div>
 </div>
     <div>
         <p>{% trans "Forgot password" %}? <a href="">{% trans "Reset it here" %}</a>!</p>

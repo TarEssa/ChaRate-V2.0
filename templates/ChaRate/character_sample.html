@@ -1,0 +1,106 @@
+{% extends 'ChaRate/base.html' %} 
+{% load staticfiles %} 
+{% block title_block %} 
+    Darth Vader 
+{% endblock %} 
+{% block body_block%}
+
+<div class="container">
+    <div class="bblock">
+        <h2>Darth Vader</h2>
+        <p>Likes: ---</p>
+    </div>
+    <div class="bblock">
+        <img class="inline" src="/static/images/darth_vader.jpg" alt="Picture of Darth Vader " />
+    </div>
+    <div class="bblock">
+        <p>
+            <button class="button" onclick="openComments()">
+                <span>View Comments</span>
+            </button>
+        </p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="dblock">
+        <p>
+            <button class="button" onclick="">
+                <span>Like</span>
+            </button>
+        </p>
+    </div>
+    <div class="dblock">
+        <p>
+            <a class="button" href="">
+                <span>Add Comment</span>
+            </a>
+        </p>
+    </div>
+</div>
+<div class="container">
+    <div class="dblock">
+        <p>
+            <strong>Movie Appearances:</strong>
+        </p>
+        <a href=""> Star Wars Episode: IV </a>
+        <a href=""> Star Wars Episode: V </a>
+        <a href=""> Star Wars Episode: VI </a>
+    </div>
+    <div class="dblock">
+        <p>
+            <strong>TV Show Appearances:</strong>
+        </p>
+        <p>None</p>
+    </div>
+</div>
+<div class="container">
+    <p>Do they appear in something else?</p>
+    <div class="dblock">
+        <p>
+            <a href="">
+                Link Character to TV Show
+            </a>
+        </p>
+        <p>
+            <a href="">
+                Link Character to Movie
+            </a>
+        </p>
+    </div>
+</div>
+
+<!-- Overlay: -->
+<div class="overlay" id="comments">
+        <button class="button" onclick="closeComments()">x</button>
+    <div class="content-comments">
+        <div class="commentbox" id="author-is-user">
+            <small>author</small>
+            <p>;dfdkofg;djfg;fbkcvnblfgkfidvndlfkgjndflbncvjb,ndf,gjhdfbkdjfnvdljn</p>
+        </div>
+        <div class="commentbox">
+            <small>author2 @ --time of post--</small>
+            <p>
+                dlfkjdldfkmkmgf.gkgfmblkfgmn.gmnfgfdfgff
+                gffgfgfgfhfghfgkfglmflgvkmdfgvdgdg dfg f gffgfgfgfhfghfgkfglmflgvkmdfgvdgdgf
+                fg gffgfgfgfhfghfgkfglmflgvkmdfgvdgdg
+                fg fghghyhfghgh
+            </p>
+        </div>
+        <div class="commentbox" id="">
+            <small>author3</small>
+            <p>;dfdkofg;djfg;fbkcvnblfgkfidvndlfkgjndflbncvjb,ndf,gjhdfbkdjfnvdljn</p>
+        </div>
+        <div class="commentbox" id="">
+                <small>author3</small>
+                <p>;dfdkofg;djfg;fbkcvnblfgkfidvndlfkgjndflbncvjb,ndf,gjhdfbkdjfnvdljn</p>
+        </div>
+        <div class="commentbox" id="">
+                 <small>author3</small>
+                <p>;dfdkofg;djfg;fbkcvnblfgkfidvndlfkgjndflbncvjb,ndf,gjhdfbkdjfnvdljn</p>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
