@@ -14,7 +14,7 @@ class Movie(models.Model):
         ('other', 'Other'),
     )
     name = models.CharField(max_length=128, unique = True)
-    genre = models.CharField(max_length=20,choices=Genre_Choices, default='other')
+    genre = models.CharField(max_length=20,choices=Genre_Choices)
     slug = models.SlugField(unique=True)
 
     def save(self, *args, **kwargs):
@@ -35,7 +35,7 @@ class TV(models.Model):
         ('other', 'Other'),
     )
     name = models.CharField(max_length=128, unique = True)
-    genre = models.CharField(max_length=20,choices=Genre_Choices, default='other')
+    genre = models.CharField(max_length=20,choices=Genre_Choices)
     slug = models.SlugField(unique = True)
 
     def save(self, *args, **kwargs):
@@ -56,6 +56,11 @@ class Character(models.Model):
     picture = models.ImageField(upload_to='character_images', blank=True)
     movies = models.ManyToManyField(Movie)
     tvshows = models.ManyToManyField(TV)
+    slug = models.SlugField(blank=True, unique=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Character, self).save(*args, **kwargs)
 
     def __str__(self): 
         return self.name

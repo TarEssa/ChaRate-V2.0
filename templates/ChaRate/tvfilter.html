@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block title_block %}
-	{% get character name %}
+	Browse TV Shows
 {% endblock %} 
 
 {% block body_block %}
@@ -17,14 +17,21 @@
             <button class="button" onclick="filterSelection('Sci-Fi')"> Sci-Fi</button>
             <button class="button" onclick="filterSelection('Romance')"> Romance</button>
             <button class="button" onclick="filterSelection('Comedy')"> Comedy</button>
-            <button class="button" onclick="filterSelection('...')"> ...</button>
+            <button class="button" onclick="filterSelection('Horror')"> Horror</button>
+            <button class="button" onclick="filterSelection('Other')">Other</button>
         </div>
     </div>
 </div>
 
 <div class="container">
     <div class="filteredgrid">
-        <a class="" href="">BEEPPPPPP</a>
+        {% if tvshows %}
+            {% for tv in tvshows %}
+                <a class="{{ tv.genre }}" href="{% url 'tvpage' tv.slug %}">{{ tv.name }}</a>
+            {% endfor %}
+        {% else %}
+            <p>There seem to be no TV Shows! :(</p>
+        {% endif %}
     </div>
 </div>
 

@@ -12,7 +12,7 @@
         <h2>Add a TV Show:</h2>
     </div>
     <div class="bblock" id="dark">
-    <form id="addshow_form" method="POST" action="{% url 'add_tv' %}">
+    <form id="addtvshow_form" method="POST" action="{% url 'add_tv' %}">
         {% csrf_token %}
         {% for hidden in form.hidden_fields %}
             {{ hidden }}

@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block title_block %}
-	View Movies
+	Browse Movies
 {% endblock %} 
 
 {% block body_block %}
@@ -17,14 +17,21 @@
             <button class="button" onclick="filterSelection('Sci-Fi')"> Sci-Fi</button>
             <button class="button" onclick="filterSelection('Romance')"> Romance</button>
             <button class="button" onclick="filterSelection('Comedy')"> Comedy</button>
-            <button class="button" onclick="filterSelection('...')"> ...</button>
+            <button class="button" onclick="filterSelection('Horror')"> Horror</button>
+            <button class="button" onclick="filterSelection('Other')">Other</button>
         </div>
     </div>
 </div>
 
 <div class="container">
     <div class="filteredgrid">
-        <a class="" href="">BEEPPPPPP</button>
+        {% if movies %}
+            {% for mov in movies %}
+                <a class="{{ movie.genre }}" href="{% url 'movpage' mov.slug %}">{{mov.name}}</a>
+            {% endfor %}
+        {% else %}
+            <p>There seem to be no Movies! :(</p>
+        {% endif %}
     </div>
 </div>
 

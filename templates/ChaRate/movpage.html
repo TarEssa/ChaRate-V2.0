@@ -1,23 +1,39 @@
 {% extends 'ChaRate/base.html' %} 
 {% load staticfiles %} 
+
 {% block title_block %} 
-    {% get moviename %} 
+    {% if movie %}
+        {{ movie.name }}
+    {% else %}
+        Doesn't exist
+    {% endif %}
 {% endblock %} 
  
-{% blockbody_block %}
+{% block body_block %}
 
 <div class="container">
-    <div class="bblock">
-        <h2>{{ s.title }}</h2>
-        <p>Characters:</p>
-    </div>
+    {% if movie %}
 
-    <div class="filteredgrid">
-        {% for char in movie.chars %}
-        <a href="{% url 'char' char.slug %}">char.name</a>
-        <a href="https://google.co.uk">Google</a>
-        {% endfor %}
-    </div>
+    <div class="bblock">
+            <h2>{{ movie.name }}</h2>
+            <p>Characters:</p>
+        </div>
+    
+        <div class="filteredgrid">
+            {% if movie.characters %}
+            {% for char in movie.characters %}
+                <a href="{% url 'character' char.slug %}">char.name</a>
+            {% endfor %}
+            {% else %}
+                There are no characters for {{ movie.name }}!
+            {% endif %}
+        </div>
+
+    {% else %}
+    <p>This Movie does not exist.</p>
+    <a href="" id="darkText">Create Movie</a>
+    {% endif %}
+
 </div>
 
 {% endblock %}

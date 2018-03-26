@@ -2,93 +2,103 @@
 {% load staticfiles %}
 
 {% block title_block %}
-	{% get character name %}
+    {% if character %}
+        {{ character.name }}
+    {% else %}
+        Does not Exist!
+    {% endif %}
 {% endblock %} 
 
 {% block body_block %}
 
-<div class="container">
-    <div class="bblock">
-        <h2>{{ charactername }}</h2>
-        <p>Likes: {% numlikes %}</p>
-    </div>
-    <div class="bblock">
-        <img class="inline" src="" alt="Picture of {{ charactername }}"/>
-    </div>
-    <div class="bblock">
-        <p><button class="button" onclick=""><span>View Comments</span></button></p>
-    </div>
-</div>
-{% if user.isauthenticated %} <br/>
-<div class="container">
-<div class="dblock">
-        {% if user has liked %}
-        <p><button class="button" onclick=""><span>Unlike</span></button></p>
-        {% else %}
-        <p><button class="button" onclick=""><span>Like</span></button></p>
-        {% endif %}
-    </div>
-    <div class="dblock">
-        <p><button class="button" onclick=""><span>Add Comment</span></button></p>
-    </div>
-</div>
-{% endif %}
-<div class="container">
-    <div class="dblock">
-        <p>
-            <strong>Movie Appearances:</strong>
-        </p>
-        {% for movie in Movies %}
-            <!-- <p>{% movie %}</p> <GRID> -->
-        {% endfor %}
-    </div>
-    <div class="dblock">
-        <p>
-            <strong>TV Show Appearances:</strong>
-        </p>
-        {% for tv in tv_shows %}
-            <!-- <p>{% tv %}</p> <GRID> -->
-        {% endfor %}
-    </div>
-</div>
-{% if user.isauthenticated %}
-<div class="container">
-        <p>Do they appear in something else?</p>
-    <div class="dblock">
-        <p>
-            <a href="{% url '' %}">
-                <span>Link Character to TV Show</span>
-            </a>
-        </p>
-        <p>
-            <a href="{% url '' %}">
-                <span>Link Character to Movie</span>
-            </a>
-        </p>
-    </div>
-</div>
-{% endif %}
-
-
-<!-- Overlay: -->
-<div class="overlay" id="comments">
-
-    <button class="button" onclick="closeComments()">x</button>
-    <div class="content-comments">
-    {% for comment in comments %}
-        <!-- % if comment.author the user % -->
-        <div class="commentbox" id="author-is-user">
-            <small>comment.author @ [comment.time]</small>
-            <p>comment.content</p>
+{% if character %}
+    <div class="container">
+        <div class="bblock">
+            <h2>{{ character.name }}</h2>
+            <p>Likes: {{ character.likes }}</p>
         </div>
-        {% else %}
-        <div class="commentbox">
-            <small>comment.author @ [comment.time]</small>
-            <p>comment.content</p>
+        <div class="bblock">
+            <img class="inline" src="{{MEDIA_URL}}{{character.picture}}" alt="Picture of {{ character.name }}"/>
         </div>
-        {% endif %}
-    {% endfor %}
+        <div class="bblock">
+            <p><button class="button" onclick=""><span>View Comments</span></button></p>
+        </div>
     </div>
+    {% if user.isauthenticated %} <br/>
+    <div class="container">
+    <div class="dblock">
+            % if user has liked %
+            <p><button class="button" onclick=""><span>Unlike</span></button></p>
+            % else %
+            <p><button class="button" onclick=""><span>Like</span></button></p>
+            % endif %
+        </div>
+        <div class="dblock">
+            <p><button class="button" onclick=""><span>Add Comment</span></button></p>
+        </div>
+    </div>
+    {% endif %}
+    <div class="container">
+        <div class="dblock">
+            <p>
+                <strong>Movie Appearances:</strong>
+            </p>
+            {% for movie in Movies %}
+                <p>{{ movie.name }}</p>
+            {% endfor %}
+        </div>
+        <div class="dblock">
+            <p>
+                <strong>TV Show Appearances:</strong>
+            </p>
+            {% for tv in tv_shows %}
+                <p>{{ tv.name }}</p>
+            {% endfor %}
+        </div>
+    </div>
+    {% if user.isauthenticated %}
+    <div class="container">
+            <p>Do they appear in something else?</p>
+        <div class="dblock">
+            <p>
+                <a href="{% url '' %}">
+                    <span>Link Character to TV Show</span>
+                </a>
+            </p>
+            <p>
+                <a href="{% url '' %}">
+                    <span>Link Character to Movie</span>
+                </a>
+            </p>
+        </div>
+    </div>
+    {% endif %}
 
-</div>
+
+    <!-- Overlay: -->
+    <div class="overlay" id="comments">
+
+        <button class="button" onclick="closeComments()">x</button>
+        <div class="content-comments">
+        {% for comment in comments %}
+            <!-- % if comment.author the user % -->
+            <div class="commentbox" id="author-is-user">
+                <small>comment.author @ [comment.time]</small>
+                <p>comment.content</p>
+            </div>
+            <!-- % else % -->
+            <div class="commentbox">
+                <small>comment.author @ [comment.time]</small>
+                <p>comment.content</p>
+            </div>
+            <!-- % endif % -->
+        {% endfor %}
+        </div>
+    </div>
+{% else %}
+    <div class="container">
+        <p>This character does not exist.</p>
+        <a href="" id="darkText">Create a Character</a>
+    </div>
+{% endif %}
 {% endblock %}

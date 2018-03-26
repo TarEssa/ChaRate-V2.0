@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 
 from ChaRate.models import Character, Movie, TV
+from ChaRate.forms import *
 from ChaRate.forms import UserForm, UserProfileForm
 
 # from django.db.utils import OperationalError
@@ -37,7 +38,7 @@ def about(request):
 
 
 @login_required
-def link_movie(request, char_name_slug):
+def linkMovie(request, char_name_slug):
     try:
         character = Character.objects.get(slug=char_name_slug)
     except Character.DoesNotExist:
@@ -53,7 +54,7 @@ def link_movie(request, char_name_slug):
         if [character not in currentmovie.Character.all()]:
             currentmovie.Charecter.add(Charecter.objects.get(name=char_name_slug))
 
-            return show_charecter(request, char_name_slug)
+            return character(request, char_name_slug)
     return render(request, 'ChaRate/link_mov.html', context=context_dict)
 
 
@@ -73,7 +74,7 @@ def linkTv(request, char_name_slug):
 
         if [character not in currentmovie.Character.all()]:
             currentshow.Character.add(Character.objects.get(name=char_name_slug))
-            return show_character(request, char_name_slug)
+            return character(request, char_name_slug)
     return render(request, 'ChaRate/link_tv.html', context=context_dict)
 
 
@@ -85,16 +86,16 @@ def Account(request, ):
     return render(request, 'ChaRate/account.html', context=context_dict)
 
 
-def filter_tv(request):
-    TVshows = TV.objects.all()
-    context_dict = {'TVShows': TVShows}
-    return render(request, 'ChaRate/character.html', context_dict)
+def view_tvshows(request):
+    TVShows = TV.objects.all()
+    context_dict = {'tvshows': TVShows}
+    return render(request, 'ChaRate/tvfilter.html', context_dict)
 
 
-def filter_mov(request):
+def view_movies(request):
     movies = Movie.objects.all()
     context_dict = {'movies': movies}
-    return render(request, 'ChaRate/character.html', context_dict)
+    return render(request, 'ChaRate/movfilter.html', context_dict)
 
 
 def search(request):
@@ -104,30 +105,30 @@ def search(request):
     return render(request, 'ChaRate/character.html', context_dict)
 
 
-def show_character(request, Character_name_slug):
+def character(request, char_name_slug):
     context_dict = {}
     try:
-
-        character = Character.objects.get(slug=Character_name_slug)
-        movie = Character.objects.filter(character=character)
-        TVshows = TV.objects.filter(character=character)
-        context_dict['Name'] = character.name
-        context_dict['Movies'] = movie
-        context_dict['TVshows'] = TVshows
+        character = Character.objects.get(slug=char_name_slug)
+        # movie = character.objects.get(movies)
+        # TVshows = TV.objects.filter(character=character)
+        context_dict['character'] = character
+        context_dict['movies'] = character.movies
+        context_dict['tvshows'] = character.tvshows
     except Character.DoesNotExist:
-        context_dict['Movies'] = None
-        context_dict['TVshows'] = None
+        context_dict['character'] = None
+        context_dict['movies'] = None
+        context_dict['tvshows'] = None
 
     return render(request, 'ChaRate/character.html', context_dict)
 
 
-def show_movie(request, movie_name_slug):
+def show_movie(request, mov_name_slug):
     context_dict = {}
     try:
-        movie = Movie.objects.get(slug=movie_name_slug)
-        characters = Character.objects.filter(movie=movie)
-        context_dict['Movie'] = movie
-        context_dict['Characters'] = characters
+        movie = Movie.objects.get(slug=mov_name_slug)
+        characters = Character.objects.filter(movies=movie)
+        context_dict['movie'] = movie
+        context_dict['characters'] = characters
 
     except Movie.DoesNotExist:
         context_dict['movies'] = None
@@ -136,15 +137,15 @@ def show_movie(request, movie_name_slug):
     return render(request, 'ChaRate/movpage.html', context_dict)
 
 
-def show_tvShow(request, tvshow_name_slug):
+def show_tvShow(request, tv_name_slug):
     context_dict = {}
     try:
-        TvShow = TV.objects.get(slug=tvshow_name_slug)
-        characters = characters.objects.filter(TvShow=TvShow)
+        tvshow = TV.objects.get(slug=tv_name_slug)
+        characters = Character.objects.filter(tvshows=tvshow)
         context_dict['tvshow'] = tvshow
-        context_dict['Characters'] = characters
+        context_dict['characters'] = characters
 
-    except Category.DoesNotExist:
+    except TV.DoesNotExist:
         context_dict['tvshow'] = None
         context_dict['characters'] = None
 
@@ -157,12 +158,12 @@ def add_tv(request):
     model = TV
 
     if request.method == 'POST':
-        form = MovieForm(request.POST)
+        form = AddTvForm(request.POST)
 
         if form.is_valid():
             form.save(commit=True)
 
-            return filter_tv(request)
+            return view_tvshows(request)
         else:
 
             print(form.errors)
@@ -172,25 +173,25 @@ def add_tv(request):
 
 @login_required
 def add_mov(request):
-    form = AddMovForm()
-    model = Movie
+     form = AddMovForm()
+     model = Movie
 
-    if request.method == 'POST':
-        form = MovieForm(request.POST)
+     if request.method == 'POST':
+         form = AddMovForm(request.POST)
 
-        if form.is_valid():
-            form.save(commit=True)
+         if form.is_valid():
+             form.save(commit=True)
 
-            return filter_mov(request)
-        else:
+             return view_movies(request)
+         else:
 
-            print(form.errors)
+             print(form.errors)
 
-    return render(request, 'ChaRate/add_mov.html', {'form': form})
+     return render(request, 'ChaRate/add_mov.html', {'form': form})
 
 
 @login_required
-def add_comment(request, Character_name_slug):
+def add_comment(request, char_name_slug):
     form = CommentForm()
 
     if request.method == 'POST':
@@ -201,7 +202,7 @@ def add_comment(request, Character_name_slug):
 
             form.save(commit=True)
 
-            return show_character(request, Character_name_slug)
+            return character(request, char_name_slug)
         else:
 
             print(form.errors)
@@ -230,23 +231,22 @@ def add_comment(request, Character_name_slug):
 #  return render(request, 'ChaRate/add_page.html', context_dict)
 
 
-@login_required
-def add_character(request, CHAR_name_slug):
-    try:
-        char = Character.objects.get(slug=CHAR_name_slug)
-    except Character.DoesNotExist:
-        char = None
+#@login_required
+def add_character(request):
+    # try:
+        # char = Character.objects.get(slug=char_name_slug)
+    # except Character.DoesNotExist:
     form = createCharForm()
     if request.method == 'POST':
-        form = CharacterForm(request.POST)
+        form = createCharForm(request.POST, request.FILES)
         if form.is_valid():
-            character.likes = 0
-            character.save()
-            return show_category(request, CHAR_name_slug)
+            # character.likes = 0
+            character.picture = request.FILES['picture']
+            form.save(commit=True)
+            return index(request)
     else:
         print(form.errors)
-        context_dict = {'form': form, 'character': char}
-    return render(request, 'ChaRate/create_character.html', context_dict)
+    return render(request, 'ChaRate/create_character.html', {'form': form})
 
 
 # User Authentication: ------------------------------------

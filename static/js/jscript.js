@@ -28,3 +28,7 @@ function closeComments() {
     document.getElementById("comments").style.display = "none";
 }
 // -----------------------------
+
+// ----- TV & Movie Filter: -----
+
+// ------------------------------

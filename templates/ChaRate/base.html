@@ -56,8 +56,8 @@
                 {% else %}
                     <a href="{%  url 'registration_register' %}">Sign Up</a>
                 {% endif %}
-                    <a href="">Browse TV Shows</a>
-                    <a href="">Browse Movies</a>
+                    <a href="{% url 'view_tvshows' %}">Browse TV Shows</a>
+                    <a href="{% url 'view_movies' %}">Browse Movies</a>
                     <a href="{% url 'about' %}">About Us</a>
                     <a href="{% url 'index' %}">Homepage</a>
             </div>

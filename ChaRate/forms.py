@@ -31,20 +31,22 @@ class UserProfileForm(forms.ModelForm):
 #        model = TV
 #        fields = ('show')
 
-#class AddTvForm(forms.ModelForm):
-#    name = forms.CharField(widget=forms, help_text="Please enter the Title of the TV Show")
+class AddTvForm(forms.ModelForm):
+    name = forms.CharField(help_text="Please enter the Title here and select the Genre from the dropdown",
+    widget=forms.TextInput(attrs={'placeholder': 'Enter title here....'}))
 
-#    class Meta:
-#        model = TV
-#        fields = ('name', 'genre')
+    class Meta:
+        model = TV
+        fields = ('name', 'genre')
 
-#class AddMovForm(forms.ModelForm):
-#    name = forms.CharField(widget=forms, help_text="Please enter the Title of the Movie")
+class AddMovForm(forms.ModelForm):
+    name = forms.CharField(help_text="Please enter the Title here and select the Genre from the dropdown",
+    widget=forms.TextInput(attrs={'placeholder': 'Enter title here....'}))
 
-#    class Meta:
-#        model = Movie
-#        fields = ('name', 'genre')
-#
+    class Meta:
+        model = Movie
+        fields = ('name', 'genre')
+
 class add_comment(forms.ModelForm):
     class Meta:
         model = Comment
@@ -54,6 +56,7 @@ class createCharForm(forms.ModelForm):
     name = forms.CharField(required=True,max_length=20, help_text="Please enter the Character Name")
     picture = forms.ImageField(required=True, help_text="Choose an image to upload")
     likes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
+    slug = forms.CharField(widget=forms.HiddenInput(), required=False)
     class Meta:
         model = Character
-        fields = ('name', 'picture', 'likes')
+        fields = ('name', 'picture')
