@@ -110,6 +110,7 @@ def character(request, char_name_slug):
     context_dict = {}
     try:
         character = Character.objects.get(slug=char_name_slug)
+        comments = Comment.objects.filter(character=character)
         user_id = request.user.id
         print(request.user)
         try:
@@ -128,10 +129,12 @@ def character(request, char_name_slug):
         context_dict['character'] = character
         context_dict['movies'] = character.movies
         context_dict['tvshows'] = character.tvshows
+        context_dict['comments'] = comments
     except Character.DoesNotExist:
         context_dict['character'] = None
         context_dict['movies'] = None
         context_dict['tvshows'] = None
+        context_dict['comments'] = None
 
     return render(request, 'ChaRate/character.html', context_dict)
 
@@ -216,17 +219,16 @@ def add_comment(request, char_name_slug):
     except:
         character = None
 
-    form = add_comment()
+    form = addComment()
     if request.method == 'POST':
-        form = add_comment(request.POST)
-
+        form = addComment(request.POST)
         if form.is_valid():
-            form.save(commit=False)
-            form.writer = request.user
-            form.character = character
-            form.save()
-
-            return character(request, char_name_slug)
+            if character:
+                forminstance = form.save(commit=False)
+                forminstance.writer = request.user
+                forminstance.character = character
+                forminstance.save()
+                return character_browser(request)
         else:
 
             print(form.errors)

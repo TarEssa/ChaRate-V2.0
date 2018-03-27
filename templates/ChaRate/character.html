@@ -38,7 +38,7 @@
             {% endif %}
         </div>
         <div class="dblock">
-            <p><button class="button" onclick=""><span>Add Comment</span></button></p>
+            <p><a class="button" href="{% url 'add_comment' char_name_slug=character.slug %}">Add Comment</a></p>
         </div>
     </div>
     {% endif %}
@@ -85,17 +85,17 @@
         <button class="button" onclick="closeComments()">x</button>
         <div class="content-comments">
         {% for comment in comments %}
-            {% if comment.author == user %}
+            <!-- IF WONT' WORK % if comment.writer == user % -->
             <div class="commentbox" id="author-is-user">
-                <small>{{comment.author}} @ {{comment.time}}</small>
-                <p>comment.content</p>
+                <small>{{ comment.writer }} @ {{ comment.written_at }}</small>
+                <p>{{ comment.content }}</p>
             </div>
-            {% else %}
+            <!-- % else % -->
             <div class="commentbox">
-                <small>{{comment.author}} @ {{comment.time}}</small>
-                <p>comment.content</p>
+                <small>{{ comment.writer }} @ {{ comment.written_at }}</small>
+                <p>{{ comment.content }}</p>
             </div>
-            {% endif %}
+            <!-- % endif % -->
         {% endfor %}
         </div>
     </div>

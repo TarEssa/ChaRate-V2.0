@@ -45,11 +45,13 @@ class AddMovForm(forms.ModelForm):
         model = Movie
         fields = ('name', 'genre')
 
-class add_comment(forms.ModelForm):
-    content = forms.TextInput
+class addComment(forms.ModelForm):
+    content = forms.CharField(widget=forms.Textarea)
+    # writer = forms.CharField(widget=forms.HiddenInput())
+    # character = forms.CharField(widget=forms.HiddenInput())
     class Meta:
         model = Comment
-        fields = ('writer', 'character', 'content')
+        fields = ('content',)
 
 class createCharForm(forms.ModelForm):
     name = forms.CharField(required=True,max_length=20, help_text="Please enter the Character Name")
