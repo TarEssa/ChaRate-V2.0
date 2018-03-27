@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.conf.urls import url ,include
 from django.contrib.auth import views as auth_views
 from ChaRate import views
 
@@ -56,14 +56,11 @@ urlpatterns = [
 
     # User Authentication:
     url(r'^accounts/login/$', auth_views.login, name='login'),
-#    url(r'^login/$', views.user_login, name ='login'),
-#    url(r'^register/$', views.register, name='register'),
-#    url(r'^logout/$', views.user_logout, name='logout'),
+    #Pass Reset
+    url('^', include('django.contrib.auth.urls')),
 
-
-    #restricted +/ logout
-    # No restricted page required
-
+#    url(r'^password_reset/$', auth_views.password_reset,
+#        {'post_reset_redirect' : '/user/password/reset/done/'}, name ='reset'),
     # Test for javascript comments --------------------
     url(r'^samplecharacter/$', views.sample_char, name='samplechar'),
     # -------------------------------------------------

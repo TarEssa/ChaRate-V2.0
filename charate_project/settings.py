@@ -151,8 +151,10 @@ LOGIN_URL = '/accounts/login/'
 
 # <-------------------------------EMAIL AUTH----------------------------------------->
 
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'youremail@gmail.com'
-EMAIL_HOST_PASSWORD = 'yourpassword'
-EMAIL_PORT = 587
+#EMAIL_HOST = 'localhost'# 'smtp.sendgrid.net'
+#EMAIL_PORT =  '1025'#587
+#EMAIL_HOST_USER = 'ChaRate'
+#EMAIL_HOST_PASSWORD = 'ChaRate1234'
+#EMAIL_USE_TLS = False #True
+#DEFAULT_FROM_EMAIL = 'ChaRate Team <noreply@ChaRate.com>'
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

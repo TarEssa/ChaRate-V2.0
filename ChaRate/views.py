@@ -315,4 +315,8 @@ def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('index'))
 
+
+
+#def pass_reset(request):
+
     # ------------------------------------
