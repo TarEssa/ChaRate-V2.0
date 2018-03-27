@@ -148,3 +148,11 @@ ACCOUNT_ACTIVATION_DAYS = 99
 REGISTRATION_AUTO_LOGIN = True
 LOGIN_REDIRECT_URL = '/ChaRate/'
 LOGIN_URL = '/accounts/login/'
+
+# <-------------------------------EMAIL AUTH----------------------------------------->
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'youremail@gmail.com'
+EMAIL_HOST_PASSWORD = 'yourpassword'
+EMAIL_PORT = 587

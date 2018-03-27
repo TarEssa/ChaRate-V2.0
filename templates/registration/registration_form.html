@@ -2,43 +2,38 @@
 {% load staticfiles %}
 
 {% block title_block %}
-	Register
+  <h2>Register</h2>
 {% endblock %}
 
 {% block body_block %}
-	<div class="container" id="registration">
-	<!-- <div class="bblock"> -->
-    <h1>Register for ChaRate</h1>
+    <div class="container" id="registration">
+     <h1>Register for ChaRate</h1>
+    {% if registered %}
+        <a href="{% url 'index' %}">Return to the homepage.</a><br />
+     {% else %}
     <div class="bblock" id="dark">
-	{% if registered %}
-		<strong>Thank you for registering!</strong>
-		<a href="{% url 'index' %}">Return to the homepage.</a><br />
-	{% else %}
-		<h3>Register here!</h3>
-		<br />
-		<form id="user_form" method="post" action="." enctype="multipart/form-data"></form>
-            <!--{% url 'registration_register' %}-->
-		{% csrf_token %}
+        <div method="post">
+            <form id="user_form" method="post" action="{% url 'registration_register' %}"
+                    enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for field in form %}
+                <p>
+                    {{ field.label_tag }}<br>
+                    {{ field }}
+                    {% if field.help_text %}
+                        <small style="display: none">{{ field.help_text }}</small>
+                    {% endif %}
+                    {% for error in field.errors %}
+                        <p style="color: red ">{{ error }}</p>
+                    {% endfor %}
+                </p>
+            {% endfor %}
+            {{ profile_form.as_p }}
 
-		{{ user_form.as_p }}
-		{{ profile_form.as_p }}
-
-        {% for field in form %}
-            <p>
-                {{ field.label_tag }}<br>
-                {{ field }}
-                {% if field.help_text %}
-                    <small style="color: grey">{{ field.help_text }}</small>
-                {% endif %}
-                {% for error in field.errors %}
-                    <p style="color: red">{{ error }}</p>
-                {% endfor %}
-            </p>
-        {% endfor %}
-
-		</div>
-		<button class="button" type="submit" name="submit"><span>Register</span></button>
-		</form>
-	{% endif %}
-	</div>
+            <button class="button" type="submit" name="submit"><span>Register</span></button>
+        </form>
+    </div>
+    </div>
+    {% endif %}
+    </div>
 {% endblock %}

@@ -1,21 +1,19 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from ChaRate.models import UserProfile, Movie, TV, Comment, Character
+from ChaRate.models import Profile, Movie, TV, Comment, Character
 
 class UserForm(UserCreationForm):
-    name = forms.CharField(max_length=50, required=True, help_text='Insert Name.')
     email = forms.EmailField(max_length=254, required= True, help_text='Required. Inform a valid email address.')
-    #password = forms.CharField(widget=forms.PasswordInput())
+
     class Meta:
         model = User
-        fields = ('username','name', 'email', 'password1','password2')
+        fields = ('username', 'email', 'password1','password2')
 
-class UserProfileForm(forms.ModelForm):
+class Profileform(forms.ModelForm):
     class Meta:
-        model = UserProfile
-        fields = ()
-
+        model = Profile
+        fields = ( 'bio', 'CommentCount', 'likes')
 # class linkMovieForm(forms.ModelForm):
 #     movies = Movie.objects.all()
 

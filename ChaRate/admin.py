@@ -1,5 +1,5 @@
 from django.contrib import admin
-from ChaRate.models import UserProfile
+from ChaRate.models import Profile
 
 # Register your models here.
-admin.site.register(UserProfile)
+admin.site.register(Profile)

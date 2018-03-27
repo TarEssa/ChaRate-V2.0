@@ -67,7 +67,7 @@ class Character(models.Model):
 
                 
 
-class UserProfile(models.Model):
+class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(max_length=500, blank=True)
     CommentCount = models.IntegerField(default=0)
@@ -78,8 +78,9 @@ class UserProfile(models.Model):
 @receiver(post_save, sender=User)
 def update_user_profile(sender, instance, created, **kwargs):
     if created:
-        UserProfile.objects.create(user=instance)
-    instance.userprofile.save()
+        Profile.objects.create(user=instance)
+    instance.profile.save()
+
 
 
 class Comment(models.Model):

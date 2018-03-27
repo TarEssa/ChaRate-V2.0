@@ -26,6 +26,7 @@ class MyRegistrationView(RegistrationView):
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
+    url('accounts/', include('django.contrib.auth.urls')),
     url(r'^ChaRate/', include('ChaRate.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/register/$',MyRegistrationView.as_view(),name='registration_register'),

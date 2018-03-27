@@ -1,13 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 
+
 from ChaRate.models import Character, Movie, TV
 from ChaRate.forms import *
-from ChaRate.forms import UserForm, UserProfileForm
+from ChaRate.forms import UserForm, Profileform
 
 # from django.db.utils import OperationalError
 # format_list = [('', '(all)')]
@@ -259,32 +260,33 @@ def suggest_character(request):
 def register(request):
     registered = False
     if request.method == 'POST':
-        form = UserForm(data=request.POST)
-        # profile_form = UserProfileForm(data=request.POST)
+        form = UserForm(data = request.POST)
+        profile_form = Profileform(data = request.POST)
         if form.is_valid():
             user = form.save()
             user.refresh_from_db()
             user.save()
             username = form.cleaned_data.get('username')
-            password1 = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=password1)
+            raw_pass = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_pass)
+            user.save()
+            profile = profile_form.save(commit = False)
+            profile.user = user
+            profile.save()
             registered = True
+            user.is_active = True
             login(request, user)
-
-
-            # profile = profile_form.save(commit=False)
-            # profile.user = user
-            # if 'picture' in request.FILES:
-            #    profile.picture = request.FILES['picture']
-        #            profile.save()
-        #            registered = True
-        #       else:
-        #          print(user_form.errors, profile_form.errors)
+            return redirect('index')
+        else:
+            print(form.errors, profile_form.errors)
     else:
-        form = UserForm
-        # profile_form = UserProfileForm()
-    return render(request, 'ChaRate/registration_register',
-                  {'form': form, 'registered': registered})
+        form = UserForm()
+        profile_form = Profileform()
+        return render(request, 'ChaRate/registration_form.html',
+                        {'form': form,
+                         'profile-form' :profile_form,
+                        'registered': registered}
+     )
 
 
 def user_login(request):
@@ -312,6 +314,5 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('index'))
-
 
     # ------------------------------------
