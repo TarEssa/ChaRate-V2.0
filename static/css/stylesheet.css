@@ -116,6 +116,10 @@ a.s_icon {
     margin-right: 20px;
     margin-top: 0px;
     /* transform: scale(-1,-1); */
+    /* -webkit-transform: rotate(45deg); 
+    -moz-transform: rotate(45deg); 
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg); */
 }
 
 a.s_icon:hover {
@@ -306,6 +310,7 @@ input#radio {
     border-top: solid 3px #4b4b4b;
     border-bottom: solid 3px #4b4b4b;
     display: none;
+    overflow: scroll;
 }
 
 .search.exit {
@@ -319,7 +324,10 @@ input.search {
     font-size: 12px;
     width: 70%;
     display: table-cell;
-    height: 20px;
+    height: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 5px;
 }
 
 button.search {
@@ -333,7 +341,7 @@ button.search {
     font-size: 12px;
     display: table-cell;
     width: 100px;
-    height: 30px;
+    height: 40px;
 }
 
 button.search:hover {
@@ -432,7 +440,7 @@ button.search:hover {
     font-size: 10px;
 }
 
-/* .filteredgrid a {
+.filteredgrid a.visible {
     padding: 0;
     height: 50px;
     width: 150px;
@@ -440,13 +448,12 @@ button.search:hover {
     border: solid 3px #333;
     overflow: hidden;
     word-wrap: break-word;
-    /* display: table-cell; 
+    display: table-cell; 
     text-align: center;
     background-color: #333;
     color: #ffffff;
     float: left;
-    display: none;
-} */
+}
 
 .filteredA {
     padding: 0;

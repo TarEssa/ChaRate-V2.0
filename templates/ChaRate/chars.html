@@ -1,0 +1,11 @@
+<ul class="nav nav-pills flex-column">
+        {% if chars %}
+            {% for c in chars %}
+                {% if c == act_char %}
+                        <strong><a href="{% url 'character' c.slug %}">{{ c.name }}</a></strong>
+                {% else  %}
+                         <a class="visible" href="{% url 'character' c.slug %}">{{ c.name }}</a>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </ul>
