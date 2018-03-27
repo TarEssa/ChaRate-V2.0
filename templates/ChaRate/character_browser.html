@@ -1,0 +1,23 @@
+{% extends 'ChaRate/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+	List of Characters
+{% endblock %} 
+
+{% block body_block %}
+<div class="container">
+    <div class="bblock">
+    <h1>Browse Characters</h1>
+    <p></p></div>
+    <div class="filteredgrid">
+        {% if characters %}
+            {% for char in characters %}
+                <a href="{% url 'character' char.slug %}">{{char.name}}</a>
+            {% endfor %}
+        {% else %}
+            <p>No characters :(</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

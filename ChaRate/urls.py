@@ -23,6 +23,8 @@ urlpatterns = [
     # View a Character:
     url(r'^character/(?P<char_name_slug>[\w\-]+)/$', views.character, name='character'),
 
+    url(r'character_browser/$', views.character_browser, name='character_browser'),
+
     # Add a Character:
     url(r'^add_character/$', views.add_character, name = 'add_character'),
 
@@ -35,8 +37,7 @@ urlpatterns = [
     #views.linkTv, name = 'link_movie'),
 
     # Add a Comment:
-    url(r'^character/(?P<char_name_slug>[\w\-]+)/add_comment/$', 
-    views.add_comment, name="add_comment"),
+    url(r'^character/(?P<char_name_slug>[\w\-]+)/add_comment/$', views.add_comment, name="add_comment"),
 
 #   url(r'^tvshows/(?P<tv_name_slug>[\w\-]+)/add_character/$',
 #      views.create_character, name='create_character'),

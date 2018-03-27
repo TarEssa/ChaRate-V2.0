@@ -83,9 +83,10 @@ def update_user_profile(sender, instance, created, **kwargs):
 
 
 class Comment(models.Model):
-    writer = models.ForeignKey(UserProfile)
+    writer = models.CharField(max_length=150)
     character = models.ForeignKey(Character)
     content = models.CharField(max_length=250)
+    written_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name

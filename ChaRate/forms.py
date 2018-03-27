@@ -16,13 +16,13 @@ class UserProfileForm(forms.ModelForm):
         model = UserProfile
         fields = ()
 
-#class linkMovieForm(forms.ModelForm):
-    #movies = Movie.objects.all()
+# class linkMovieForm(forms.ModelForm):
+#     movies = Movie.objects.all()
 
-    #movie = forms.ChoiceField(choices=[(x, slugify(x)) for x in movies], required=False)
-    #class Meta:
-       # model =  Movie
-       # fields = ('movie')
+#     movie = forms.ChoiceField(choices=[(x, x.slug) for x in movies], required=False)
+#     class Meta:
+#         model =  Character
+#         fields = ('movie')
 
 #class linkTvForm(forms.ModelForm):
 #    shows = TV.objects.all()
@@ -48,6 +48,7 @@ class AddMovForm(forms.ModelForm):
         fields = ('name', 'genre')
 
 class add_comment(forms.ModelForm):
+    content = forms.TextInput
     class Meta:
         model = Comment
         fields = ('writer', 'character', 'content')

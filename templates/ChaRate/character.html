@@ -18,10 +18,11 @@
             <p>Likes: {{ character.likes }}</p>
         </div>
         <div class="bblock">
-            <img class="inline" src="{{MEDIA_URL}}{{character.picture}}" alt="Picture of {{ character.name }}"/>
+            <img class="inline" src="{{MEDIA_URL}}{{character.picture}}" 
+            alt="Picture of {{ character.name }}"/>
         </div>
         <div class="bblock">
-            <p><button class="button" onclick=""><span>View Comments</span></button></p>
+            <p><button class="button" onclick="openComments()"><span>View Comments</span></button></p>
         </div>
     </div>
     {% if user.isauthenticated %} <br/>
@@ -81,17 +82,17 @@
         <button class="button" onclick="closeComments()">x</button>
         <div class="content-comments">
         {% for comment in comments %}
-            <!-- % if comment.author the user % -->
+            {% if comment.author == user %}
             <div class="commentbox" id="author-is-user">
-                <small>comment.author @ [comment.time]</small>
+                <small>{{comment.author}} @ {{comment.time}}</small>
                 <p>comment.content</p>
             </div>
-            <!-- % else % -->
+            {% else %}
             <div class="commentbox">
-                <small>comment.author @ [comment.time]</small>
+                <small>{{comment.author}} @ {{comment.time}}</small>
                 <p>comment.content</p>
             </div>
-            <!-- % endif % -->
+            {% endif %}
         {% endfor %}
         </div>
     </div>

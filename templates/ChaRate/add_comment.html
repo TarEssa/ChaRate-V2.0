@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block title_block %}
-	Add Comment
+	Add Comment to {{ Character.name }}
 {% endblock %} 
 
 {% block body_block %}
@@ -14,12 +14,22 @@
 </div>
 
 <div class="container">
-    <p>Username: -USERNAME-</p>
+    <p>Username: {{ user.username }}</p>
     <div class="bblock" id="dark">
-        <!-- Comment form -->
-        <textarea name="comment" id="" maxlength="250"></textarea>
+        <form id="add_comment_form" method="post" action="{% url 'add_comment' %}" >
+            {% csrf_token %}
+            {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
+            {% for field in form.visible_fields %}
+                {{ field.errors }}
+                {{ field.help_text }}
+                {{ field }}
+            {% endfor %}
+        <!-- <textarea name="comment" id="" maxlength="250"></textarea> -->
     </div>
     <div class="bblock">
-        <button class="button"><span>Add Comment</span></button>
+        <button class="button" type="submit" name="submit">Add Comment</button>
+    </form> 
     </div>
 </div>

@@ -17,22 +17,19 @@
 <div class="container">
 	<div class="dblock">
 		<h2>Most Liked Characters</h2></br>
-        <!-- {% if characters %}  -->
-            <!-- {% for char in characters %}
-		    <p>
-			    <a href="{% url 'show_character' character.slug %}">{{ character.name }}</a>
-		    </p>
-            {% endfor %}  -->
-        <!-- {% else %} -->
+        {% if characters %}  
+            {% for char in characters %}
+			<a href="{% url 'character' char.slug %}">{{ char.name }}</a>
+            {% endfor %} 
+        {% else %} 
 		    <p><strong>There are no characters! Oops.</strong></p>
-		<!-- {% endif %} -->
+		{% endif %}
 	</div>
 
 	<div class="dblock">
-
             <h3>Looking for characters?</h3>
-            <a id="button" href="">Explore TV Shows</a>
-            <a id="button" href="">Explore Movies</a>
+            <a id="button" href="{% url 'view_tvshows' %}">Explore TV Shows</a>
+            <a id="button" href="{% url 'view_movies' %}">Explore Movies</a>
 
 		<!-- <h3>Most Viewed Pages</h3>
 		<!-- <p> -->

@@ -30,7 +30,7 @@ def index(request):
     characters = Character.objects.order_by('-likes')[:5]
     # most_discussed = Character.objects.order_by('-comments')[:1]
     context_dict = {'characters': characters}  # 'most_comments': most_discussed}
-    return render(request, 'ChaRate/index.html', context=context_dict)
+    return render(request, 'ChaRate/index.html', context_dict)
 
 
 def about(request):
@@ -121,6 +121,11 @@ def character(request, char_name_slug):
 
     return render(request, 'ChaRate/character.html', context_dict)
 
+def character_browser(request):
+    characters = Character.objects.all()
+    context_dict = {'characters': characters}
+
+    return render(request, 'ChaRate/character_browser.html', context_dict)
 
 def show_movie(request, mov_name_slug):
     context_dict = {}
@@ -192,46 +197,29 @@ def add_mov(request):
 
 @login_required
 def add_comment(request, char_name_slug):
-    form = CommentForm()
+    try:
+        character = Character.objects.get(slug=char_name_slug)
+    except:
+        character = None
 
+    form = add_comment()
     if request.method == 'POST':
-        form = CommentForm(request.POST)
+        form = add_comment(request.POST)
 
         if form.is_valid():
-            form.writer = UserProfile.objects.get(user=request.user)
-
-            form.save(commit=True)
+            form.save(commit=False)
+            form.writer = request.user
+            form.character = character
+            form.save()
 
             return character(request, char_name_slug)
         else:
 
             print(form.errors)
 
-    return render(request, 'ChaRate/add_comment.html', {'form': form})
+    return render(request, 'ChaRate/add_comment.html', {'form': form, 'character': character})
 
-
-# @login_required
-# def add_characterTv(request, tvshow_name_slug):
-#  try:
-#   tvShow = TV.objects.get(slug=tvshow_name_slug)
-#  except tvShow.DoesNotExist:
-#      tvShow = None
-#  form = TVForm()
-#  if request.method == 'POST':
-#   form = tvForm(request.POST)
-#   if form.is_valid():
-#    if tvShow:
-#      character = form.save(commit=False)
-#      character.likes = 0
-#      character.save()
-#      return show_category(request, tvshow_name_slug)
-#  else:
-#     print(form.errors)
-#     context_dict = {'form':form, 'tvShow': tvShow}
-#  return render(request, 'ChaRate/add_page.html', context_dict)
-
-
-#@login_required
+@login_required
 def add_character(request):
     # try:
         # char = Character.objects.get(slug=char_name_slug)
@@ -243,7 +231,7 @@ def add_character(request):
             # character.likes = 0
             character.picture = request.FILES['picture']
             form.save(commit=True)
-            return index(request)
+            return character_browser(request)
     else:
         print(form.errors)
     return render(request, 'ChaRate/create_character.html', {'form': form})

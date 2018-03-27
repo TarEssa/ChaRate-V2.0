@@ -85,6 +85,7 @@ select {
     padding-top: 0;
 }
 
+
 a {
     font-family: Courier New;
     /* float: right; */
@@ -272,6 +273,12 @@ input:focus {
     float: none;
     border-bottom: 2px solid #333;
 }
+
+.button.active {
+    background-color: #333;
+    border-bottom: 2px solid #6e6e6e;
+    color: lightskyblue;
+}
   
 .button:hover {
     color: lightskyblue;
@@ -425,7 +432,7 @@ button.search:hover {
     font-size: 10px;
 }
 
-.filteredgrid a {
+/* .filteredgrid a {
     padding: 0;
     height: 50px;
     width: 150px;
@@ -433,14 +440,33 @@ button.search:hover {
     border: solid 3px #333;
     overflow: hidden;
     word-wrap: break-word;
-    display: table-cell;
+    /* display: table-cell; 
     text-align: center;
     background-color: #333;
     color: #ffffff;
     float: left;
+    display: none;
+} */
+
+.filteredA {
+    padding: 0;
+    height: 50px;
+    width: 150px;
+    margin: 2px;
+    border: solid 3px #333;
+    overflow: hidden;
+    word-wrap: break-word;
+    /* display: table-cell; */
+    text-align: center;
+    background-color: #333;
+    color: #ffffff;
+    float: left;
+    display: none;
 }
 
-
+.show {
+    display: table-cell;
+}
 
 .filteredgrid a:hover {
     color: lightskyblue;
