@@ -39,6 +39,9 @@ urlpatterns = [
     # Add a Comment:
     url(r'^character/(?P<char_name_slug>[\w\-]+)/add_comment/$', views.add_comment, name="add_comment"),
 
+    # AJAX search functionality: (appears in searchbar)
+    url(r'^suggest/$', views.suggest_character, name='suggest_category'),
+
 #   url(r'^tvshows/(?P<tv_name_slug>[\w\-]+)/add_character/$',
 #      views.create_character, name='create_character'),
 #    url(r'^movies/(?P<mov_name_slug>[\w\-]+)/add_character/$',

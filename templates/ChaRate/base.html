@@ -33,9 +33,19 @@
     
     <div id="searchbar">
         <div class="dblock">
-            <input type="text" class="search" name="search" placeholder="Search" value=""/>
-            <button class="search" type="submit" ><span>Search</span></button>
+            <!-- <input type="text" class="search" name="search" placeholder="Search for a Character" value=""/> -->
+            <!-- <button class="search" type="submit" ><span>Search</span></button> -->
             <button class="search exit" onclick="closeSearch()">x</button>
+            <ul class="nav nav-list flex-column">
+                <form>
+                    <li class="nav-item"><input class="search-query form-control" type="text"
+                    name="suggestion" value="" id="suggestion" 
+                    placeholder="Search for Characters..." /> </li>
+                </form> 
+            </ul>
+            <div class="fit_page">
+            <div class="filteredgrid" id="chars"> </div>
+            </div>
         </div>
     </div>
 
@@ -58,11 +68,15 @@
                 {% endif %}
                     <a href="{% url 'view_tvshows' %}">Browse TV Shows</a>
                     <a href="{% url 'view_movies' %}">Browse Movies</a>
+                    <a href="{% url 'character_browser' %}">Browse Characters</a>
                     <a href="{% url 'about' %}">About Us</a>
                     <a href="{% url 'index' %}">Homepage</a>
             </div>
         </div>
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+    <script src="{% static 'js/ChaRate-ajax.js' %}"></script>
 </body>
 
 </html>

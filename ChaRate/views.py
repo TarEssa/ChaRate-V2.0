@@ -237,6 +237,23 @@ def add_character(request):
     return render(request, 'ChaRate/create_character.html', {'form': form})
 
 
+def get_character_list(max_results=0, starts_with=''): 
+    char_list = []
+    if starts_with:
+        char_list = Character.objects.filter(name__istartswith=starts_with)
+    if max_results > 0:
+        if len(char_list) > max_results:
+            char_list = char_list[:max_results] 
+    return char_list
+
+def suggest_character(request): 
+    char_list = []
+    starts_with = ''
+    if request.method == 'GET':
+        starts_with = request.GET['suggestion']
+    char_list = get_character_list(8, starts_with)
+    return render(request, 'ChaRate/chars.html', {'chars': char_list })
+
 # User Authentication: ------------------------------------
 
 def register(request):
