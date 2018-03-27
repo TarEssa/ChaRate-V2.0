@@ -65,12 +65,12 @@
             <p>Do they appear in something else?</p>
         <div class="dblock">
             <p>
-                <a href="% url '' %">
+                <a href="{% url 'link_tvshow' char_name_slug=character.slug %}">
                     <span>Link Character to TV Show</span>
                 </a>
             </p>
             <p>
-                <a href="% url '' %">
+                <a href="{% url 'link_movie' char_name_slug=character.slug %}">
                     <span>Link Character to Movie</span>
                 </a>
             </p>

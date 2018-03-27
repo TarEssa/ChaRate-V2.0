@@ -29,12 +29,12 @@ urlpatterns = [
     url(r'^add_character/$', views.add_character, name = 'add_character'),
 
     # Link a Character to a Movie:
-    #url(r'^character/(?P<char_name_slug>[\w\-]+)/link_to_movie/$', 
-    #views.linkMovie, name = 'link_tvshow'),
+    url(r'^character/(?P<char_name_slug>[\w\-]+)/link_to_movie/$', 
+    views.linkMovie, name = 'link_tvshow'),
 
     # Link a Character to a TV Show:
-    #url(r'^character/(?P<char_name_slug>[\w\-]+)/link_to_movie/$', 
-    #views.linkTv, name = 'link_movie'),
+    url(r'^character/(?P<char_name_slug>[\w\-]+)/link_to_movie/$', 
+    views.linkTv, name = 'link_movie'),
 
     # Add a Comment:
     url(r'^character/(?P<char_name_slug>[\w\-]+)/add_comment/$', views.add_comment, name="add_comment"),
