@@ -15,7 +15,7 @@
     <div class="container">
         <div class="bblock">
             <h2>{{ character.name }}</h2>
-            <p>Likes: {{ character.likes }}</p>
+            <h3>Likes:<div id="like_count"><strong>{{ character.likes }}</strong></div></h3>
         </div>
         <div class="bblock">
             <img class="inline" src="{{MEDIA_URL}}{{character.picture}}" 
@@ -25,14 +25,17 @@
             <p><button class="button" onclick="openComments()"><span>View Comments</span></button></p>
         </div>
     </div>
-    {% if user.isauthenticated %} <br/>
+ 
+
+    {% if user.is_authenticated %} <br/>
     <div class="container">
     <div class="dblock">
-            % if user has liked %
-            <p><button class="button" onclick=""><span>Unlike</span></button></p>
-            % else %
-            <p><button class="button" onclick=""><span>Like</span></button></p>
-            % endif %
+            {% if liked %}
+                <button id="likes" data-charid="{{character.id}}" 
+                    class="button" type="button">Like</button> 
+            {% else %}
+                <p>You like {{ character.name }}!</p>
+            {% endif %}
         </div>
         <div class="dblock">
             <p><button class="button" onclick=""><span>Add Comment</span></button></p>
@@ -57,17 +60,17 @@
             {% endfor %}
         </div>
     </div>
-    {% if user.isauthenticated %}
+    {% if user.is_authenticated %}
     <div class="container">
             <p>Do they appear in something else?</p>
         <div class="dblock">
             <p>
-                <a href="{% url '' %}">
+                <a href="% url '' %">
                     <span>Link Character to TV Show</span>
                 </a>
             </p>
             <p>
-                <a href="{% url '' %}">
+                <a href="% url '' %">
                     <span>Link Character to Movie</span>
                 </a>
             </p>
