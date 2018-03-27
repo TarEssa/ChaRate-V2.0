@@ -38,29 +38,30 @@
 </div>
 
 <div class="container">
-    <!--  get character with most comments  -->
+    {% for char in most_commented %}
     <div class="dblock">
-        <img class="ri" src="/static/images/darth_vader.jpg" 
-        alt="Character Image" style="width:100%"> 
+        <img class="ri" src="{{MEDIA_URL}}{{char.picture}}" 
+        alt="Character Image of {{ char.name }}" style="width:100%"> 
     </div>
     <div class="dblock">
-        <h2>Most Discussed Character:</h2> <br/>
-        <p>
-            --CHARACTER NAME--
-            <!--  character name   -->
-        </p>
-        <p>From:</p>
+        <h2>Most Discussed Character:</h2> 
+        <br/>
+        
+        <h1>
+            {{ char.name }}
+        </h1>
+        <br/>
+        <p>Number of Comments: {{ char.comments }}</p>
+        <a href="{% url 'character' char_name_slug=char.slug %}">Visit Page</a>
 
-        <p>
-        SHOWS & MOVIES
-        <!--  for shows in tvshow 
-            print shows
-         endfor 
+        <!-- % for show in char.tvshows %} -->
+         <!-- {{ char.tvshows }} -->
+        <!-- % endfor %}  -->
 
-         for movie in movies 
-             print movie
-         endfor  -->
-        </p>
+        <!-- % for movies in char.movies %}  -->
+             <!-- print movie -->
+        <!-- % endfor %}  -->
+        {% endfor %}
 
 
 

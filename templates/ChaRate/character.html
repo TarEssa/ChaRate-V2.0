@@ -86,10 +86,10 @@
         <div class="content-comments">
         {% for comment in comments %}
             <!-- IF WONT' WORK % if comment.writer == user % -->
-            <div class="commentbox" id="author-is-user">
-                <small>{{ comment.writer }} @ {{ comment.written_at }}</small>
-                <p>{{ comment.content }}</p>
-            </div>
+            <!-- <div class="commentbox" id="author-is-user">
+                <small> comment.writer  @  comment.written_at </small>
+                <p> comment.content </p>
+            </div> -->
             <!-- % else % -->
             <div class="commentbox">
                 <small>{{ comment.writer }} @ {{ comment.written_at }}</small>

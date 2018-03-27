@@ -29,8 +29,8 @@ def sample_char(request):
 
 def index(request):
     characters = Character.objects.order_by('-likes')[:5]
-    # most_discussed = Character.objects.order_by('-comments')[:1]
-    context_dict = {'characters': characters}  # 'most_comments': most_discussed}
+    most_discussed = Character.objects.order_by('-comments')[:1]
+    context_dict = {'characters': characters, 'most_commented': most_discussed}
     return render(request, 'ChaRate/index.html', context_dict)
 
 
@@ -227,6 +227,8 @@ def add_comment(request, char_name_slug):
                 forminstance = form.save(commit=False)
                 forminstance.writer = request.user
                 forminstance.character = character
+                character.comments += 1
+                character.save()
                 forminstance.save()
                 return character_browser(request)
         else:

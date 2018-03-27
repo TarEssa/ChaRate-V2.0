@@ -83,6 +83,7 @@ class Character(models.Model):
     name = models.CharField(max_length=128, unique = True)
     #ID = models.IntegerField(unique = True)
     likes = models.IntegerField(default=0)
+    comments = models.IntegerField(default=0)
     likedBy = models.ManyToManyField(Profile)
     picture = models.ImageField(upload_to='character_images', blank=True)
     movies = models.ManyToManyField(Movie)
