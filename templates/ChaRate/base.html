@@ -60,7 +60,7 @@
                 <button class="search exit" id="closebutton" onclick="closeNav()"><span>x</span></button>
                 {% if user.is_authenticated %}
                     <a href="{% url 'auth_logout' %}">Logout</a>
-                    <a href="">Create a Character</a>
+                    <a href="{% url 'add_character' %}">Create a Character</a>
                     <a href="{% url 'add_mov' %}">Add a Movie</a>
                     <a href="{% url 'add_tv' %}">Add a TV Show</a>
                 {% else %}

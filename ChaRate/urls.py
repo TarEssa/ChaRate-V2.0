@@ -42,6 +42,9 @@ urlpatterns = [
     # AJAX search functionality: (appears in searchbar)
     url(r'^suggest/$', views.suggest_character, name='suggest_category'),
 
+    # AJAX like:
+    url(r'^like/$', views.like_character, name='like_char'),
+
 #   url(r'^tvshows/(?P<tv_name_slug>[\w\-]+)/add_character/$',
 #      views.create_character, name='create_character'),
 #    url(r'^movies/(?P<mov_name_slug>[\w\-]+)/add_character/$',

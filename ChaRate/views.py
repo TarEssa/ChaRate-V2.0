@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 
 
-from ChaRate.models import Character, Movie, TV
+from ChaRate.models import Character, Movie, TV, Profile
 from ChaRate.forms import *
 from ChaRate.forms import UserForm, Profileform
 
@@ -110,8 +110,21 @@ def character(request, char_name_slug):
     context_dict = {}
     try:
         character = Character.objects.get(slug=char_name_slug)
-        # movie = character.objects.get(movies)
-        # TVshows = TV.objects.filter(character=character)
+        user_id = request.user.id
+        print(request.user)
+        try:
+            user = Profile.objects.get(user=user_id)
+            liked = character.likedBy.get(user=user_id)
+        except:
+            user = None
+            liked = None
+        print(liked)
+        if user == liked and liked != None:
+            context_dict['liked'] = False
+            print('false', user)
+        else:
+            context_dict['liked'] = True
+            print('true', user, liked)
         context_dict['character'] = character
         context_dict['movies'] = character.movies
         context_dict['tvshows'] = character.tvshows
@@ -254,6 +267,25 @@ def suggest_character(request):
         starts_with = request.GET['suggestion']
     char_list = get_character_list(8, starts_with)
     return render(request, 'ChaRate/chars.html', {'chars': char_list })
+
+@login_required
+def like_character(request):
+    char_id = None
+    user_id = None
+    if request.method == 'GET':
+        char_id = request.GET['character_id'] 
+        user_id = request.user.id
+         
+    likes = 0
+    if char_id:
+        char = Character.objects.get(id=int(char_id))
+        user = Profile.objects.filter(user=user_id)
+        if char:
+            likes = char.likes + 1
+            char.likes = likes
+            char.likedBy = user
+            char.save()
+    return HttpResponse(likes)
 
 # User Authentication: ------------------------------------
 

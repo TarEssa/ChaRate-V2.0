@@ -49,23 +49,21 @@ class TV(models.Model):
         return self.name
 
 
-class Character(models.Model):
-    name = models.CharField(max_length=128, unique = True)
-    #ID = models.IntegerField(unique = True)
-    likes = models.IntegerField(default=0)
-    picture = models.ImageField(upload_to='character_images', blank=True)
-    movies = models.ManyToManyField(Movie)
-    tvshows = models.ManyToManyField(TV)
-    slug = models.SlugField(blank=True, unique=True)
+# class Character(models.Model):
+#     name = models.CharField(max_length=128, unique = True)
+#     likes = models.IntegerField(default=0)
+#     likedBy = models.ManyToManyField(Profile)
+#     picture = models.ImageField(upload_to='character_images', blank=True)
+#     movies = models.ManyToManyField(Movie)
+#     tvshows = models.ManyToManyField(TV)
+#     slug = models.SlugField(blank=True, unique=True)
 
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
-        super(Character, self).save(*args, **kwargs)
+#     def save(self, *args, **kwargs):
+#         self.slug = slugify(self.name)
+#         super(Character, self).save(*args, **kwargs)
 
-    def __str__(self): 
-        return self.name
-
-                
+#     def __str__(self): 
+#         return self.name               
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -81,7 +79,22 @@ def update_user_profile(sender, instance, created, **kwargs):
         Profile.objects.create(user=instance)
     instance.profile.save()
 
+class Character(models.Model):
+    name = models.CharField(max_length=128, unique = True)
+    #ID = models.IntegerField(unique = True)
+    likes = models.IntegerField(default=0)
+    likedBy = models.ManyToManyField(Profile)
+    picture = models.ImageField(upload_to='character_images', blank=True)
+    movies = models.ManyToManyField(Movie)
+    tvshows = models.ManyToManyField(TV)
+    slug = models.SlugField(blank=True, unique=True)
 
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Character, self).save(*args, **kwargs)
+
+    def __str__(self): 
+        return self.name
 
 class Comment(models.Model):
     writer = models.CharField(max_length=150)
