@@ -20,9 +20,9 @@
     </div>
 
     <div class="filteredgrid">
-        {% if tvshow.characters %}
-        {% for char in tvshow.characters %}
-            <a href="{% url 'character' char.slug %}">char.name</a>
+        {% if characters %}
+        {% for char in characters %}
+            <a class="visible" href="{% url 'character' char.slug %}">{{char.name}}</a>
         {% endfor %}
         {% else %}
             There are no characters for {{ tvshow.name }}!

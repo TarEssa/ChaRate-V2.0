@@ -48,15 +48,15 @@
                 <strong>Movie Appearances:</strong>
             </p>
             {% for movie in Movies %}
-                <p>{{ movie.name }}</p>
+            <a href="{% url 'movpage' mov_name_slug=movie.slug %}">{{ movie.name }}</a>
             {% endfor %}
         </div>
         <div class="dblock">
             <p>
                 <strong>TV Show Appearances:</strong>
             </p>
-            {% for tv in tv_shows %}
-                <p>{{ tv.name }}</p>
+            {% for tv in tvshows %}
+                <a href="{% url 'tvpage' tv_name_slug=tv.slug %}">{{ tv.name }}</a>
             {% endfor %}
         </div>
     </div>
@@ -65,12 +65,12 @@
             <p>Do they appear in something else?</p>
         <div class="dblock">
             <p>
-                <a href="{% url 'link_tvshow' char_name_slug=character.slug %}">
+                <a href="{% url 'link_tv' char_name_slug=character.slug %}">
                     <span>Link Character to TV Show</span>
                 </a>
             </p>
             <p>
-                <a href="{% url 'link_movie' char_name_slug=character.slug %}">
+                <a href="% url 'link_movie' char_name_slug=character.slug %">
                     <span>Link Character to Movie</span>
                 </a>
             </p>

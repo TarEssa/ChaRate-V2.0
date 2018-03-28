@@ -29,7 +29,7 @@ def sample_char(request):
 
 def index(request):
     characters = Character.objects.order_by('-likes')[:5]
-    most_discussed = Character.objects.order_by('-comments')[:1]
+    most_discussed = Character.objects.order_by('-comments').first()
     context_dict = {'characters': characters, 'most_commented': most_discussed}
     return render(request, 'ChaRate/index.html', context_dict)
 
@@ -37,46 +37,60 @@ def index(request):
 def about(request):
     return render(request, 'ChaRate/about.html', {})
 
-
 @login_required
 def linkMovie(request, char_name_slug):
     try:
-        character = Character.objects.get(slug=char_name_slug)
+        currentcharacter = Character.objects.get(slug=char_name_slug)
     except Character.DoesNotExist:
-        character = None
+        currentcharacter = None
 
-    movies_list = Movie.objects.all()
-    currentmovie = linkMovieForm()
+    shows_list = Movie.objects.all()
+    form = linkMovieForm()
 
     if request.method == 'POST':
-
-        currentmovie = linkMovie(request.POST)
-
-        if [character not in currentmovie.Character.all()]:
-            currentmovie.Charecter.add(Charecter.objects.get(name=char_name_slug))
-
-            return character(request, char_name_slug)
-    return render(request, 'ChaRate/link_mov.html', context=context_dict)
+        form = linkMovieForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            movie = data['movie']
+            if currentcharacter:
+                try:
+                    linked_already = currentcharacter.movies.get(slug=show)
+                except:
+                    linked_already = None
+            
+                if linked_already == None:
+                    currentcharacter.movies.add(Movie.objects.get(slug=show))
+                    currentcharacter.save()
+                return character(request, char_name_slug)
+    return render(request, 'ChaRate/link_mov.html', {'form': form, 'character': currentcharacter})
 
 
 @login_required
 def linkTv(request, char_name_slug):
     try:
-        character = Character.objects.get(slug=char_name_slug)
+        currentcharacter = Character.objects.get(slug=char_name_slug)
     except Character.DoesNotExist:
-        character = None
+        currentcharacter = None
 
     shows_list = TV.objects.all()
-    currentshow = linkTvForm()
+    form = linkTvForm()
 
     if request.method == 'POST':
-
-        currentshow = linkTvForm(request.POST)
-
-        if [character not in currentmovie.Character.all()]:
-            currentshow.Character.add(Character.objects.get(name=char_name_slug))
-            return character(request, char_name_slug)
-    return render(request, 'ChaRate/link_tv.html', context=context_dict)
+        form = linkTvForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            show = data['show']
+            if currentcharacter:
+                try:
+                    linked_already = currentcharacter.tvshows.get(slug=show)
+                except:
+                    linked_already = None
+            
+                if linked_already == None:
+                    currentcharacter.tvshows.add(TV.objects.get(slug=show))
+                    currentcharacter.save()
+                return character(request, char_name_slug)
+    return render(request, 'ChaRate/link_tv.html', {'form': form, 'character': currentcharacter})
 
 
 @login_required
@@ -127,8 +141,8 @@ def character(request, char_name_slug):
             context_dict['liked'] = True
             print('true', user, liked)
         context_dict['character'] = character
-        context_dict['movies'] = character.movies
-        context_dict['tvshows'] = character.tvshows
+        context_dict['movies'] = character.movies.all()
+        context_dict['tvshows'] = character.tvshows.all()
         context_dict['comments'] = comments
     except Character.DoesNotExist:
         context_dict['character'] = None

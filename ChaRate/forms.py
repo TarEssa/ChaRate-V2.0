@@ -14,20 +14,24 @@ class Profileform(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ( 'bio', 'CommentCount', 'likes')
-# class linkMovieForm(forms.ModelForm):
-#     movies = Movie.objects.all()
 
-#     movie = forms.ChoiceField(choices=[(x, x.slug) for x in movies], required=False)
-#     class Meta:
-#         model =  Character
-#         fields = ('movie')
+class linkMovieForm(forms.Form):
+    movies = Movie.objects.all()
+    try:
+        movie = forms.ChoiceField(choices=[(x.slug, x) for x in movies], required=True)
+    except:
+        show = None
+    class Meta:
+        fields = ('movie',)
 
-#class linkTvForm(forms.ModelForm):
-#    shows = TV.objects.all()
-#    show = forms.ChoiceField(choices=[(x, slugify(x)) for x in shows], required=False)
-#    class Meta:
-#        model = TV
-#        fields = ('show')
+class linkTvForm(forms.Form):
+    shows = TV.objects.all()
+    try:
+        show = forms.ChoiceField(choices=[(x.slug, x) for x in shows], required=True)
+    except:
+        show = None
+    class Meta:
+        fields = ('show',)
 
 class AddTvForm(forms.ModelForm):
     name = forms.CharField(help_text="Please enter the Title here and select the Genre from the dropdown",
