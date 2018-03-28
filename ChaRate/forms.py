@@ -22,20 +22,17 @@ class Profileform(forms.ModelForm):
 
 # Link Movie Form
 class linkMovieForm(forms.Form):
-    movies = Movie.objects.all()
+    movie = forms.ModelChoiceField(queryset=Movie.objects.all())
 
     class Meta:
-        movie = forms.ChoiceField(choices=[(x.slug, x) for x in movies], required=True)
         fields = ('movie',)
 
 
 # Link Tv Form
 class linkTvForm(forms.Form):
-    shows = TV.objects.all()
+    show = forms.ModelChoiceField(queryset=TV.objects.all())
 
     class Meta:
-        shows = TV.objects.all()
-        show = forms.ChoiceField(choices=[(x.slug, x) for x in shows], required=True)
         fields = ('show',)
 
 

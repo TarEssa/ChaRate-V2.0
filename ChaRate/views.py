@@ -49,12 +49,12 @@ def linkMovie(request, char_name_slug):
             movie = data['movie']
             if currentcharacter:
                 try:
-                    linked_already = currentcharacter.movies.get(slug=movie)
+                    linked_already = currentcharacter.movies.get(slug=movie.slug)
                 except:
                     linked_already = None
 
                 if linked_already == None:
-                    currentcharacter.movies.add(Movie.objects.get(slug=movie))
+                    currentcharacter.movies.add(Movie.objects.get(slug=movie.slug))
                     currentcharacter.save()
                 return character(request, char_name_slug)
     return render(request, 'ChaRate/link_mov.html', {'form': form, 'character': currentcharacter})
@@ -78,12 +78,12 @@ def linkTv(request, char_name_slug):
             show = data['show']
             if currentcharacter:
                 try:
-                    linked_already = currentcharacter.tvshows.get(slug=show)
+                    linked_already = currentcharacter.tvshows.get(slug=show.slug)
                 except:
                     linked_already = None
 
                 if linked_already == None:
-                    currentcharacter.tvshows.add(TV.objects.get(slug=show))
+                    currentcharacter.tvshows.add(TV.objects.get(slug=show.slug))
                     currentcharacter.save()
                 return character(request, char_name_slug)
     return render(request, 'ChaRate/link_tv.html', {'form': form, 'character': currentcharacter})
