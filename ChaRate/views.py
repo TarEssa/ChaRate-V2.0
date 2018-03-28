@@ -10,18 +10,6 @@ from ChaRate.models import Character, Movie, TV, Profile
 from ChaRate.forms import *
 from ChaRate.forms import UserForm, Profileform
 
-# from django.db.utils import OperationalError
-# format_list = [('', '(all)')]
-# geom_type_list = [('', '(all)')]
-# try:
-#     format_list.extend([(i[0],i[0]) 
-#         for i in Format.objects.values_list('name')])
-#     geom_type_list.extend([(i[0],i[0]) 
-#         for i in Geom_type.objects.values_list('name')])
-# except OperationalError:
-#     pass  # happens when db doesn't exist yet, views.py should be
-#           # importable without this side effect
-
 # ------Only a sample for  JavaScript comments------
 def sample_char(request):
     return render(request, 'ChaRate/character_sample.html', {})

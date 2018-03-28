@@ -19,7 +19,7 @@
 		<h2>Most Liked Characters</h2></br>
         {% if characters %}  
             {% for char in characters %}
-			<a href="{% url 'character' char_name_slug=char.slug %}">{{ char.name }}</a>
+			<a href="{% url 'character' char.slug %}">{{ char.name }}</a>
             {% endfor %} 
         {% else %} 
 		    <p><strong>There are no characters! Oops.</strong></p>
@@ -38,7 +38,7 @@
 </div>
 
 <div class="container">
-    <!-- % for char in most_commented %} -->
+    {% if most_commented %}
     <div class="dblock">
         <img class="ri" src="{{MEDIA_URL}}{{most_commented.picture}}" 
         alt="Character Image of {{ most_commented.name }}" style="width:100%"> 
@@ -47,24 +47,25 @@
         <h2>Most Discussed Character:</h2> 
         <br/>
         
-        <h1>
-            {{ most_commented.name }}
-        </h1>
-        <br/>
-        <p>Number of Comments: {{ most_commented.comments }}</p>
-        <a href="{% url 'character' char_name_slug=most_commented.slug %}">Visit Page</a>
+            <h1>
+                {{ most_commented.name }}
+            </h1>
+            <br/>
+            <p>Number of Comments: {{ most_commented.comments }}</p>
+            <a href="{% url 'character' most_commented.slug %}">Visit Page</a>
 
-        <!-- most_commented.tvshows}} -->
-        <!-- % for show in most_commented.tvshows %} -->
-          <!-- show }} -->
-        <!-- % endfor %}  -->
+            <!-- most_commented.tvshows}} -->
+            <!-- % for show in most_commented.tvshows %} -->
+            <!-- show }} -->
+            <!-- % endfor %}  -->
 
-        <!-- % for movies in char.movies %}  -->
-             <!-- print movie -->
-        <!-- % endfor %}  -->
-        <!-- % endfor %} -->
-
-
+            <!-- % for movies in char.movies %}  -->
+                <!-- print movie -->
+            <!-- % endfor %}  -->
+            <!-- % endfor %} -->
+        {% else %}
+        No Characters!
+        {% endif %}
 
     </div>
 </div>

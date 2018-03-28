@@ -31,6 +31,8 @@ class linkTvForm(forms.Form):
     except:
         show = None
     class Meta:
+        shows = TV.objects.all()
+        show = forms.ChoiceField(choices=[(x.slug, x) for x in shows], required=True)
         fields = ('show',)
 
 class AddTvForm(forms.ModelForm):
