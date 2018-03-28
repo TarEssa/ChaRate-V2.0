@@ -3,6 +3,7 @@ import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'charate_project.settings')
 
 import django
+
 django.setup()
 
 from ChaRate.models import Character, Movie, TV, Comment
@@ -70,11 +71,10 @@ def populate():
 
     # add movies to db
     for film in movies:
-        f=add_movie(name=movies["name"], genre= movies["genre"])
+        f = add_movie(name=movies["name"], genre=movies["genre"])
 
-        #f = Movie.objects.get_or_create(name=film["name"], genre=film["genre"])
-        #f.save()
-
+        # f = Movie.objects.get_or_create(name=film["name"], genre=film["genre"])
+        # f.s
 
     # add shows to db
     for tv in shows:
@@ -83,8 +83,8 @@ def populate():
         return t
 
     # add characters to db
-    for char in chars:
-        c = Character.objects.get_or_create(name=char["name"], likes=0, comments=0)
+    for char, chardata in chars.items():
+        # c = Character.objects.get_or_create(name=char["name"], likes=0, comments=0)
         if char["movies"]:
             for film in char['movies']:
                 c.movies.add(Movie.objects.get(name=film))
@@ -94,12 +94,22 @@ def populate():
 
         c.save()
 
-def add_movie (name, genre):
+
+def add_movie(name, genre):
     f = Movie.objects.get_or_create(name=name, genre=genre)
+    f.name = name
     f.genre = genre
-    f.name =  name
     f.save()
     return f
+
+
+def add_tv(name, genre):
+    t = TV.objects.get_or_create(name=name, genre=genre)
+    t.name = name
+    t.genre = genre
+    t.save()
+    return t
+
 
 # Start execution here!
 if __name__ == '__main__':

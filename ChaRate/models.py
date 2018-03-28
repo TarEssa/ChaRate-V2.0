@@ -62,6 +62,7 @@ class TV(models.Model):
 class Profile(models.Model):
     # Added items to display on the Profile page
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    bio = models.CharField(max_length=500, unique=False)
     CommentCount = models.IntegerField(default=0)
     likes = models.IntegerField(default=0)
 

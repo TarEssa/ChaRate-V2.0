@@ -17,7 +17,7 @@ class UserForm(UserCreationForm):
 class Profileform(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('bio', 'CommentCount', 'likes')
+        fields = ('bio','CommentCount', 'likes')
 
 
 # Link Movie Form
