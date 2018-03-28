@@ -20,17 +20,25 @@ from django.contrib import admin
 from registration.backends.simple.views import RegistrationView
 from ChaRate import views, urls
 
+
+# Registration view that moves to index page right after
+# a successful registration process
 class MyRegistrationView(RegistrationView):
     def get_success_url(self, user):
         return '/ChaRate/'
 
+
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
-    url('accounts/', include('django.contrib.auth.urls')),
-    url(r'^ChaRate/', include('ChaRate.urls')),
-    url(r'^admin/', admin.site.urls),
-    url(r'^accounts/register/$',MyRegistrationView.as_view(),name='registration_register'),
-    url(r'^accounts/', include('registration.backends.simple.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-
+                  # Index Url
+                  url(r'^$', views.index, name='index'),
+                  # Accounts Urls that are used by Django Reg Redux
+                  url('accounts/', include('django.contrib.auth.urls')),
+                  # Included the Html Urls in The Template Folder
+                  url(r'^ChaRate/', include('ChaRate.urls')),
+                  # Admin Page URls
+                  url(r'^admin/', admin.site.urls),
+                  # Registration redux Registration URL
+                  url(r'^accounts/register/$', MyRegistrationView.as_view(), name='registration_register'),
+                  # Django Registration Redux Template names urls for easier linkage
+                  url(r'^accounts/', include('registration.backends.simple.urls')),
+              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

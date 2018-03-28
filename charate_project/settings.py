@@ -18,7 +18,6 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
 MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
@@ -29,7 +28,6 @@ SECRET_KEY = 'j1l0n2pzz8cq0p-mehjbe@*cf8%^5)f!^p6spqz!mb+*59t%v@'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -75,7 +73,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'charate_project.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
@@ -106,13 +103,12 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Password Hashers
 PASSWORD_HASHERS = (
+    # Uses Bcrypt for password authentication
     'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
     'django.contrib.auth.hashers.BCryptPasswordHasher',
     'django.contrib.auth.hashers.PBKDF2PasswordHasher',
     'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
 )
-
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
@@ -127,21 +123,19 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATICFILES_DIRS = [STATIC_DIR, ]
 STATIC_URL = '/static/'
 
-
 # Media files (Images)
 
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
 
-#Login URL
-#This ensures that the decorator will
+# Login URL
+# This ensures that the decorator will
 # redirect any user not logged in to the URL
 REGISTRATION_OPEN = True
 ACCOUNT_ACTIVATION_DAYS = 99
@@ -149,12 +143,3 @@ REGISTRATION_AUTO_LOGIN = True
 LOGIN_REDIRECT_URL = '/ChaRate/'
 LOGIN_URL = '/accounts/login/'
 
-# <-------------------------------EMAIL AUTH----------------------------------------->
-
-#EMAIL_HOST = 'localhost'# 'smtp.sendgrid.net'
-#EMAIL_PORT =  '1025'#587
-#EMAIL_HOST_USER = 'ChaRate'
-#EMAIL_HOST_PASSWORD = 'ChaRate1234'
-#EMAIL_USE_TLS = False #True
-#DEFAULT_FROM_EMAIL = 'ChaRate Team <noreply@ChaRate.com>'
-#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

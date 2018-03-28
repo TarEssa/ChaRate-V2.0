@@ -5,26 +5,33 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 
-
 from ChaRate.models import Character, Movie, TV, Profile
 from ChaRate.forms import *
 from ChaRate.forms import UserForm, Profileform
 
+
 # ------Only a sample for  JavaScript comments------
 def sample_char(request):
     return render(request, 'ChaRate/character_sample.html', {})
-# --------------------------------------------------
 
+
+# --------------------------------------------------
+# Index View
 def index(request):
+    # Ordering the top 5 Most Liked by likes
     characters = Character.objects.order_by('-likes')[:5]
+    # Shows the most talked about Character
     most_discussed = Character.objects.order_by('-comments').first()
     context_dict = {'characters': characters, 'most_commented': most_discussed}
     return render(request, 'ChaRate/index.html', context_dict)
 
 
+# About Us View Render
 def about(request):
     return render(request, 'ChaRate/about.html', {})
 
+
+# If Logged in the Link Movie View will become available
 @login_required
 def linkMovie(request, char_name_slug):
     try:
@@ -45,7 +52,7 @@ def linkMovie(request, char_name_slug):
                     linked_already = currentcharacter.movies.get(slug=movie)
                 except:
                     linked_already = None
-            
+
                 if linked_already == None:
                     currentcharacter.movies.add(Movie.objects.get(slug=movie))
                     currentcharacter.save()
@@ -53,6 +60,7 @@ def linkMovie(request, char_name_slug):
     return render(request, 'ChaRate/link_mov.html', {'form': form, 'character': currentcharacter})
 
 
+# If Logged in the Link Tv Show View will become available
 @login_required
 def linkTv(request, char_name_slug):
     try:
@@ -73,7 +81,7 @@ def linkTv(request, char_name_slug):
                     linked_already = currentcharacter.tvshows.get(slug=show)
                 except:
                     linked_already = None
-            
+
                 if linked_already == None:
                     currentcharacter.tvshows.add(TV.objects.get(slug=show))
                     currentcharacter.save()
@@ -81,26 +89,21 @@ def linkTv(request, char_name_slug):
     return render(request, 'ChaRate/link_tv.html', {'form': form, 'character': currentcharacter})
 
 
-@login_required
-def Account(request, ):
-    comments = Comment.objects.filter(writer=request.user)
-    characters = UserProfile.objects.CommentCount.get(user=request.user)
-    context_dict = {'comments': len(comments), 'characters': characters}
-    return render(request, 'ChaRate/account.html', context=context_dict)
-
-
+# You can browst the Tv Shows at this view
 def view_tvshows(request):
     TVShows = TV.objects.all()
     context_dict = {'tvshows': TVShows}
     return render(request, 'ChaRate/tvfilter.html', context_dict)
 
 
+# You can browst the Movies at this view
 def view_movies(request):
     movies = Movie.objects.all()
     context_dict = {'movies': movies}
     return render(request, 'ChaRate/movfilter.html', context_dict)
 
 
+# You Can search for Characters in this view
 def search(request):
     context_dict = {}
     character = Character.objects.all()
@@ -108,6 +111,7 @@ def search(request):
     return render(request, 'ChaRate/character.html', context_dict)
 
 
+# Character Page View
 def character(request, char_name_slug):
     context_dict = {}
     try:
@@ -136,12 +140,16 @@ def character(request, char_name_slug):
 
     return render(request, 'ChaRate/character.html', context_dict)
 
+
+# Character Browser view
 def character_browser(request):
     characters = Character.objects.all()
     context_dict = {'characters': characters}
 
     return render(request, 'ChaRate/character_browser.html', context_dict)
 
+
+# Movie browser view
 def show_movie(request, mov_name_slug):
     context_dict = {}
     try:
@@ -157,6 +165,7 @@ def show_movie(request, mov_name_slug):
     return render(request, 'ChaRate/movpage.html', context_dict)
 
 
+# Tv Show browser
 def show_tvShow(request, tv_name_slug):
     context_dict = {}
     try:
@@ -172,6 +181,7 @@ def show_tvShow(request, tv_name_slug):
     return render(request, 'ChaRate/tvpage.html', context_dict)
 
 
+# If Logged in you can add Tv Shows
 @login_required
 def add_tv(request):
     form = AddTvForm()
@@ -191,25 +201,27 @@ def add_tv(request):
     return render(request, 'ChaRate/add_tv.html', {'form': form})
 
 
+# If Logged in you can add Movies
 @login_required
 def add_mov(request):
-     form = AddMovForm()
-     model = Movie
+    form = AddMovForm()
+    model = Movie
 
-     if request.method == 'POST':
-         form = AddMovForm(request.POST)
+    if request.method == 'POST':
+        form = AddMovForm(request.POST)
 
-         if form.is_valid():
-             form.save(commit=True)
+        if form.is_valid():
+            form.save(commit=True)
 
-             return view_movies(request)
-         else:
+            return view_movies(request)
+        else:
 
-             print(form.errors)
+            print(form.errors)
 
-     return render(request, 'ChaRate/add_mov.html', {'form': form})
+    return render(request, 'ChaRate/add_mov.html', {'form': form})
 
 
+# If Logged in you can comment on Characters
 @login_required
 def add_comment(request, char_name_slug):
     try:
@@ -235,11 +247,10 @@ def add_comment(request, char_name_slug):
 
     return render(request, 'ChaRate/add_comment.html', {'form': form, 'character': character})
 
+
+# If Logged in you can add Characters
 @login_required
 def add_character(request):
-    # try:
-        # char = Character.objects.get(slug=char_name_slug)
-    # except Character.DoesNotExist:
     form = createCharForm()
     if request.method == 'POST':
         form = createCharForm(request.POST, request.FILES)
@@ -253,31 +264,36 @@ def add_character(request):
     return render(request, 'ChaRate/create_character.html', {'form': form})
 
 
-def get_character_list(max_results=0, starts_with=''): 
+# Shows a List of the Current Characters in the Database
+def get_character_list(max_results=0, starts_with=''):
     char_list = []
     if starts_with:
         char_list = Character.objects.filter(name__istartswith=starts_with)
     if max_results > 0:
         if len(char_list) > max_results:
-            char_list = char_list[:max_results] 
+            char_list = char_list[:max_results]
     return char_list
 
-def suggest_character(request): 
+
+# Char Suggestion in the Search Function
+def suggest_character(request):
     char_list = []
     starts_with = ''
     if request.method == 'GET':
         starts_with = request.GET['suggestion']
     char_list = get_character_list(8, starts_with)
-    return render(request, 'ChaRate/chars.html', {'chars': char_list })
+    return render(request, 'ChaRate/chars.html', {'chars': char_list})
 
+
+# If Logged in you can add likes on the Characters
 @login_required
 def like_character(request):
     char_id = None
     user_id = None
     if request.method == 'GET':
-        char_id = request.GET['character_id'] 
+        char_id = request.GET['character_id']
         user_id = request.user.id
-         
+
     likes = 0
     if char_id:
         char = Character.objects.get(id=int(char_id))
@@ -289,13 +305,14 @@ def like_character(request):
             char.save()
     return HttpResponse(likes)
 
-# User Authentication: ------------------------------------
 
+# User Authentication: ------------------------------------
+# Register View
 def register(request):
     registered = False
     if request.method == 'POST':
-        form = UserForm(data = request.POST)
-        profile_form = Profileform(data = request.POST)
+        form = UserForm(data=request.POST)
+        profile_form = Profileform(data=request.POST)
         if form.is_valid():
             user = form.save()
             user.refresh_from_db()
@@ -304,7 +321,7 @@ def register(request):
             raw_pass = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_pass)
             user.save()
-            profile = profile_form.save(commit = False)
+            profile = profile_form.save(commit=False)
             profile.user = user
             profile.save()
             registered = True
@@ -317,12 +334,13 @@ def register(request):
         form = UserForm()
         profile_form = Profileform()
         return render(request, 'ChaRate/registration_form.html',
-                        {'form': form,
-                         'profile-form' :profile_form,
-                        'registered': registered}
-     )
+                      {'form': form,
+                       'profile-form': profile_form,
+                       'registered': registered}
+                      )
 
 
+# Login Function
 def user_login(request):
     if request.method == 'POST':
 
@@ -344,13 +362,10 @@ def user_login(request):
         return render(request, 'login', {})
 
 
+# Logout Function
 @login_required
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('index'))
 
-
-
-#def pass_reset(request):
-
-    # ------------------------------------
+# -------------------- End of User Authentication ------------------------------------
