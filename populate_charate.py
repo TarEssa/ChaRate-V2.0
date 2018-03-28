@@ -10,7 +10,7 @@ from ChaRate.models import Character, Movie, TV, Comment
 
 
 def populate():
-    # create dictionary's for each cat with pages
+    # create dictionary's for each movie , tv show and character
     movies = [
         {"name": "Spider-Man: Homecoming",
          "genre": "Action"},
@@ -69,46 +69,47 @@ def populate():
          "tvshows": []},
     ]
 
+
+
     # add movies to db
     for film in movies:
-        f = add_movie(name=movies["name"], genre=movies["genre"])
-
-        # f = Movie.objects.get_or_create(name=film["name"], genre=film["genre"])
-        # f.s
+        add_movie(film["name"], film["genre"])
 
     # add shows to db
     for tv in shows:
-        t = TV.objects.get_or_create(name=tv["name"], genre=tv["genre"])
-        t.save()
-        return t
+        add_tv(tv["name"], tv["genre"])
+
+
 
     # add characters to db
-    for char, chardata in chars.items():
-        # c = Character.objects.get_or_create(name=char["name"], likes=0, comments=0)
-        if char["movies"]:
-            for film in char['movies']:
-                c.movies.add(Movie.objects.get(name=film))
-        if char["tvshows"]:
-            for show in char['tvshows']:
-                c.tvshows.add(Movie.objects.get(name=show))
-
-        c.save()
+#    for char in chars:
+#        c = Character.objects.get_or_create(name=char["name"], likes=0, comments=0)
+#        if (char["movies"] != ""):
+#            for film in char['movies']:
+#                c.movies.add(Movie.objects.get(name=film))
+#        else:
+#            for show in char['tvshows']:
+#                c.tvshows.add(Movie.objects.get(name=show))
+#        c.save()
 
 
 def add_movie(name, genre):
-    f = Movie.objects.get_or_create(name=name, genre=genre)
-    f.name = name
+    f = Movie.objects.get_or_create(name=name, genre=genre)[0]
     f.genre = genre
     f.save()
     return f
 
 
 def add_tv(name, genre):
-    t = TV.objects.get_or_create(name=name, genre=genre)
-    t.name = name
+    t = TV.objects.get_or_create(name=name, genre=genre)[0]
     t.genre = genre
     t.save()
     return t
+
+def add_char(name , comments, likes, show):
+    lis = ['tvshow', 'movie']
+    cc = any(lis)
+    c = Character.objects.get_or_create(name=name,cc=show) [0]
 
 
 # Start execution here!
