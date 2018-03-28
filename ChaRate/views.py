@@ -9,13 +9,6 @@ from ChaRate.models import Character, Movie, TV, Profile
 from ChaRate.forms import *
 from ChaRate.forms import UserForm, Profileform
 
-
-# ------Only a sample for  JavaScript comments------
-def sample_char(request):
-    return render(request, 'ChaRate/character_sample.html', {})
-
-
-# --------------------------------------------------
 # Index View
 def index(request):
     # Ordering the top 5 Most Liked by likes
@@ -76,6 +69,7 @@ def linkTv(request, char_name_slug):
         if form.is_valid():
             data = form.cleaned_data
             show = data['show']
+            print(show)
             if currentcharacter:
                 try:
                     linked_already = currentcharacter.tvshows.get(slug=show.slug)
@@ -89,14 +83,14 @@ def linkTv(request, char_name_slug):
     return render(request, 'ChaRate/link_tv.html', {'form': form, 'character': currentcharacter})
 
 
-# You can browst the Tv Shows at this view
+# You can browse the Tv Shows at this view
 def view_tvshows(request):
     TVShows = TV.objects.all()
     context_dict = {'tvshows': TVShows}
     return render(request, 'ChaRate/tvfilter.html', context_dict)
 
 
-# You can browst the Movies at this view
+# You can browse the Movies at this view
 def view_movies(request):
     movies = Movie.objects.all()
     context_dict = {'movies': movies}

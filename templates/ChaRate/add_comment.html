@@ -5,6 +5,7 @@
 	Add Comment to {{ Character.name }}
 {% endblock %} 
 
+<!-- This is used to allow users to add comments to characters -->
 {% block body_block %}
 <div class="container">
     <div class="bblock">
@@ -13,10 +14,13 @@
     </div>
 </div>
 
+<!-- User can see their username, that will appear on comments -->
 <div class="container">
     <p>Username: {{ user.username }}</p>
     <div class="bblock" id="dark">
-        <form id="add_comment_form" method="post" action="{% url 'add_comment' char_name_slug=character.slug %}" >
+
+        <form id="add_comment_form" method="post" 
+        action="{% url 'add_comment' char_name_slug=character.slug %}" >
             {% csrf_token %}
             {% for hidden in form.hidden_fields %}
                 {{ hidden }}

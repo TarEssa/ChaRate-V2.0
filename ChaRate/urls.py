@@ -49,8 +49,4 @@ urlpatterns = [
 
     # User Authentication:
     url(r'^accounts/login/$', auth_views.login, name='login'),
-
-    # Test for javascript comments --------------------
-    url(r'^samplecharacter/$', views.sample_char, name='samplechar'),
-    # -------------------------------------------------
 ]

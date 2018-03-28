@@ -5,8 +5,10 @@
 	Browse Movies
 {% endblock %} 
 
+<!-- Allows user to view movies and filter them. -->
 {% block body_block %}
 
+<!-- Allows user to control which genre they wish to see. -->
 <div class="container">
     <div class="bblock" id="dark">
         <h1>Movies</h1>
@@ -23,6 +25,7 @@
     </div>
 </div>
 
+<!-- Displays a movie with its genre as the class for filtering with JavaScript. -->
 <div class="container">
     <div class="filteredgrid">
         {% if movies %}
@@ -35,7 +38,8 @@
     </div>
 </div>
 
-<!-- Script for filter functionality. -->
+<!-- Script for filter functionality.
+    Only added here to make rest of webpage load quicker. -->
 <script language='javascript' src="{% static 'js/filter.js' %}"></script>
 
 {% endblock %}

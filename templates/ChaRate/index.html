@@ -2,8 +2,10 @@
 {% load staticfiles %} 
 {% block title_block %} Index {% endblock %}
 
+<!-- The index/home page -->
 {% block body_block %}
 
+<!-- Custom welcome message. -->
 <div class="container">
         <h2>
             {% if user.is_authenticated %} 
@@ -14,6 +16,7 @@
         </h2>
 </div>
 
+<!-- Displays most liked characters if they exist. -->
 <div class="container">
 	<div class="dblock">
 		<h2>Most Liked Characters</h2></br>
@@ -26,17 +29,17 @@
 		{% endif %}
 	</div>
 
+    <!-- Allow user to conveniently look at entire list of tv shows, movies and characters. -->
 	<div class="dblock">
             <h3>Looking for characters?</h3>
             <a id="button" href="{% url 'view_tvshows' %}">Explore TV Shows</a>
             <a id="button" href="{% url 'view_movies' %}">Explore Movies</a>
             <a id="button" href="{% url 'character_browser' %}">Explore Characters</a>
-
-		<!-- <h3>Most Viewed Pages</h3>
-		<!-- <p> -->
     </div>
 </div>
 
+<!-- The most discussed character will be displayed more prominently
+    as it allows users to see more interaction with characters -->
 <div class="container">
     {% if most_commented %}
     <div class="dblock">
@@ -53,18 +56,8 @@
             <br/>
             <p>Number of Comments: {{ most_commented.comments }}</p>
             <a href="{% url 'character' most_commented.slug %}">Visit Page</a>
-
-            <!-- most_commented.tvshows}} -->
-            <!-- % for show in most_commented.tvshows %} -->
-            <!-- show }} -->
-            <!-- % endfor %}  -->
-
-            <!-- % for movies in char.movies %}  -->
-                <!-- print movie -->
-            <!-- % endfor %}  -->
-            <!-- % endfor %} -->
         {% else %}
-        No Characters!
+        <p>No Characters...yet!!!</p>
         {% endif %}
 
     </div>

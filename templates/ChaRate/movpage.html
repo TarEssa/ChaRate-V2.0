@@ -9,6 +9,7 @@
     {% endif %}
 {% endblock %} 
  
+Displays a movie and characters associated with it.
 {% block body_block %}
 
 <div class="container">
@@ -20,9 +21,9 @@
         </div>
     
         <div class="filteredgrid">
-            {% if movie.characters %}
-            {% for char in movie.characters %}
-                <a href="{% url 'character' char.slug %}">char.name</a>
+            {% if characters %}
+            {% for char in characters %}
+                <a class="visible" href="{% url 'character' char.slug %}">{{ char.name }}</a>
             {% endfor %}
             {% else %}
                 There are no characters for {{ movie.name }}!
@@ -31,7 +32,7 @@
 
     {% else %}
     <p>This Movie does not exist.</p>
-    <a href="" id="darkText">Create Movie</a>
+    <a href="{% url 'add_mov' %}" id="darkText">Create Movie</a>
     {% endif %}
 
 </div>

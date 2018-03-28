@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 {% load staticfiles %}
 
+<!-- All templates extend from this one. -->
+
 <html lang="en">
 
 <head>
@@ -15,22 +17,22 @@
 </head>
 
 <body>
+    <!-- This displays the top navbar -->
     <div class="navbar">
         <ul>
         <a id="logo" href="{% url 'index' %}">ChaRate</a>
         <a class="s_icon" id="search" onclick="openSearch()">Search</a>
-        <!--  if user.is_authenticated  -->
         {% if user.is_authenticated %}
-            <!-- <a href="">Account</a> -->
             <a href="{% url 'auth_logout' %}?next=/ChaRate/">Logout</a>
-            <!--  else  -->
-            {% else %}
+        {% else %}
             <a href="{% url 'login' %}">Login</a>
-        <!--  endif  -->
-            {% endif %}
+        {% endif %}
         </ul>
     </div>
     
+    <!-- This displays the search overlay and is shown 
+        using JavaScript by clicked the 'search' button above.
+        Users can search for characters. -->
     <div id="searchbar">
         <div class="dblock">
             <button class="search exit" onclick="closeSearch()">x</button>
@@ -47,10 +49,13 @@
         </div>
     </div>
 
+    <!-- This is where other templates will be shown, the main body. -->
     <div class="main">
     {% block body_block %} {% endblock %}
     </div>
-    <!-- <hr /> -->
+    
+    <!-- This is the bottom navigation bar. It is displayed at the bottom of each page and allows
+    users to navigate. -->
     <div class="bnav">
         <button class="button" id="bnavb" onclick="openNav()"><span>Navigation</span></button>
         <div id="navigation" class="overlay">
@@ -73,6 +78,7 @@
         </div>
     </div>
 
+    <!-- These scripts are for JQuery and AJAX (used for the like button on characters & search) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
     <script src="{% static 'js/ChaRate-ajax.js' %}"></script>
 </body>

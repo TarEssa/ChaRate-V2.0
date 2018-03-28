@@ -5,10 +5,12 @@
 	Browse TV Shows
 {% endblock %} 
 
+<!-- Allows user to view tv shows and filter them. -->
 {% block body_block %}
+
+<!-- Allows user to control which genre they wish to see. -->
 <div class="container">
     <div class="bblock" id="dark">
-            
         <h1>TV Shows</h1>
         <div class="grid" id="btnContainer">
             <button class="button active" onclick="filterSelection('all')"> Show all</button>
@@ -23,6 +25,7 @@
     </div>
 </div>
 
+<!-- Displays a movie with its genre as the class for filtering with JavaScript. -->
 <div class="container">
     <div class="filteredgrid">
         {% if tvshows %}
@@ -35,7 +38,8 @@
     </div>
 </div>
 
-<!-- Script for filter functionality. -->
+<!-- Script for filter functionality. 
+    Only added here to make rest of webpage load quicker. -->
 <script language='javascript' src="{% static 'js/filter.js' %}"></script>
 
 {% endblock %}

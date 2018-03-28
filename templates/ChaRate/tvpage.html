@@ -9,6 +9,7 @@
     {% endif %}
 {% endblock %} 
 
+<!-- Displays a tv show and all characters which appear in it. -->
 {% block body_block %}
 
 <div class="container">
@@ -31,7 +32,7 @@
     
     {% else %}
     <p>This TV Show does not exist.</p>
-    <a href="" id="darkText">Create TV Show</a>
+    <a href="{% url 'add_tv' %}" id="darkText">Create TV Show</a>
     {% endif %}
 </div>
 
