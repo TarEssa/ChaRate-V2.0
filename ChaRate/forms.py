@@ -23,10 +23,6 @@ class Profileform(forms.ModelForm):
 # Link Movie Form
 class linkMovieForm(forms.Form):
     movies = Movie.objects.all()
-    try:
-        movie = forms.ChoiceField(choices=[(x.slug, x) for x in movies], required=True)
-    except:
-        show = None
 
     class Meta:
         movie = forms.ChoiceField(choices=[(x.slug, x) for x in movies], required=True)
@@ -36,10 +32,6 @@ class linkMovieForm(forms.Form):
 # Link Tv Form
 class linkTvForm(forms.Form):
     shows = TV.objects.all()
-    try:
-        show = forms.ChoiceField(choices=[(x.slug, x) for x in shows], required=True)
-    except:
-        show = None
 
     class Meta:
         shows = TV.objects.all()
