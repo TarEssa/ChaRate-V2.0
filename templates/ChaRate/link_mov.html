@@ -2,7 +2,8 @@
 {% load staticfiles %}
 
 {% block title_block %}
-	Movie Link {% get charactername %}
+    Movie Link 
+    {{ character.name }}
 {% endblock %} 
 
 {% block body_block %}
@@ -12,11 +13,12 @@
         <h2>Link {{ character.name }} to:</h2>
     </div>
     <div class="bblock" id="dark">
-        <form id="link_mov" method="post" action="{% url 'link_mov' %}" enctype="multipart/form-data"></form> 
+        <form id="link_mov" method="post" action="{% url 'link_movie' character.slug %}" 
+        enctype="multipart/form-data"></form> 
 		
         {% csrf_token %}
             
-        {{ link_mov.as_p }}
+        {{ form.as_p }}
     </div>  
     <div class="bblock">   
         <button class="button" type="submit" name="submit"><span>Link</span></button>

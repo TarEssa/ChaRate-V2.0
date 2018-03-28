@@ -42,12 +42,12 @@ def linkMovie(request, char_name_slug):
             movie = data['movie']
             if currentcharacter:
                 try:
-                    linked_already = currentcharacter.movies.get(slug=show)
+                    linked_already = currentcharacter.movies.get(slug=movie)
                 except:
                     linked_already = None
             
                 if linked_already == None:
-                    currentcharacter.movies.add(Movie.objects.get(slug=show))
+                    currentcharacter.movies.add(Movie.objects.get(slug=movie))
                     currentcharacter.save()
                 return character(request, char_name_slug)
     return render(request, 'ChaRate/link_mov.html', {'form': form, 'character': currentcharacter})
@@ -114,20 +114,16 @@ def character(request, char_name_slug):
         character = Character.objects.get(slug=char_name_slug)
         comments = Comment.objects.filter(character=character)
         user_id = request.user.id
-        print(request.user)
         try:
             user = Profile.objects.get(user=user_id)
             liked = character.likedBy.get(user=user_id)
         except:
             user = None
             liked = None
-        print(liked)
         if user == liked and liked != None:
             context_dict['liked'] = False
-            print('false', user)
         else:
             context_dict['liked'] = True
-            print('true', user, liked)
         context_dict['character'] = character
         context_dict['movies'] = character.movies.all()
         context_dict['tvshows'] = character.tvshows.all()

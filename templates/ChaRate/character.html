@@ -47,7 +47,7 @@
             <p>
                 <strong>Movie Appearances:</strong>
             </p>
-            {% for movie in Movies %}
+            {% for movie in movies %}
             <a href="{% url 'movpage' mov_name_slug=movie.slug %}">{{ movie.name }}</a>
             {% endfor %}
         </div>
